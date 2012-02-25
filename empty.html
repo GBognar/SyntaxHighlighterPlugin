@@ -507,8 +507,12 @@ Also see [[AdvancedOptions]]</pre>
 </div>
 <!--POST-SHADOWAREA-->
 <div id="storeArea">
-<div title="ExternalScripts" modifier="pmario" created="201008220931" modified="201008242054">
+<div title="ExternalScripts" modifier="YourName" created="201008220931" modified="201202251559" changecount="1">
 <pre>SyntaxHighlighterPlugin.js</pre>
+</div>
+<div title="MarkupPostBody" creator="YourName" modifier="YourName" created="201202251603" changecount="1">
+<pre>&lt;script type=&quot;text/javascript&quot; src=&quot;loadExternal.js&quot;&gt;
+&lt;/script&gt;</pre>
 </div>
 <div title="ShBrushCSS.js" modifier="pmario" created="201008171249" modified="201008171249" tags="systemConfig syntax">
 <pre>/***
@@ -1156,6 +1160,10 @@ eval(function(p,a,c,k,e,d){e=function(c){return(c&lt;a?'':e(parseInt(c/a)))+((c=
 ***/
 </pre>
 </div>
+<div title="StyleSheet" creator="YourName" modifier="YourName" created="201202251600" changecount="1">
+<pre>[[ShCore.css]]
+[[ShThemeDefault.css]]</pre>
+</div>
 <div title="SyntaxHighlighterPlugin3Info" modifier="pmario" created="201008171251" modified="201008222209" tags="syntax">
 <pre>|''Name''|SyntaxHighlighterPlugin3Info|
 |''Description''|Documentation for [[SyntaxHighlighterPlugin3]]|
@@ -1295,6 +1303,14 @@ All possible options can be found at: [[SyntaxHighlighter homepage|http://alexgo
 **initial release
 !!!Needed: list tagged syntax
 &lt;&lt;list filter [tag[syntax]]&gt;&gt;
+</pre>
+</div>
+<div title="Test SyntaxHighlighter3Plugin" creator="YourName" modifier="YourName" created="201202251558" changecount="1">
+<pre>/*{{{*/
+body {
+    z-index: -3 !important;
+}
+/*}}}*/
 </pre>
 </div>
 <div title="zzConfig" modifier="pmario" created="201008221908" modified="201008221944" tags="systemConfig">
@@ -10938,7 +10954,8 @@ if(useJavaSaver)
 //]]>
 </script>
 <!--POST-SCRIPT-START-->
-
+<script type="text/javascript" src="loadExternal.js">
+</script>
 <!--POST-SCRIPT-END-->
 </body>
 </html>
