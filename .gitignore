@@ -1,1 +1,5 @@
-backups
+# Ignore the .backups directory
+.backups
+# Ignore tmp files by vim
+**~
+**.un~
