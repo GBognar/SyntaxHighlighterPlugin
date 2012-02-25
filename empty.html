@@ -701,6 +701,77 @@ Also see [[AdvancedOptions]]</pre>
 })();
 //}}}</pre>
 </div>
+<div title="ShBrushPython.js" modifier="Seisachtheia" created="201202201825" modified="201202201852" tags="systemConfig syntax">
+<pre>/***
+|Requires|ShCore.js|
+***/
+//{{{
+/**
+ * SyntaxHighlighter
+ * http://alexgorbatchev.com/SyntaxHighlighter
+ *
+ * SyntaxHighlighter is donationware. If you are using it, please donate.
+ * http://alexgorbatchev.com/SyntaxHighlighter/donate.html
+ *
+ * @version
+ * 3.0.83 (July 02 2010)
+ * 
+ * @copyright
+ * Copyright (C) 2004-2010 Alex Gorbatchev.
+ *
+ * @license
+ * Dual licensed under the MIT and GPL licenses.
+ */
+;(function()
+{
+	// CommonJS
+	typeof(require) != 'undefined' ? SyntaxHighlighter = require('shCore').SyntaxHighlighter : null;
+
+	function Brush()
+	{
+		// Contributed by Gheorghe Milas and Ahmad Sherif
+	
+		var keywords =  'and assert break class continue def del elif else ' +
+						'except exec finally for from global if import in is ' +
+						'lambda not or pass print raise return try yield while';
+
+		var funcs = '__import__ abs all any apply basestring bin bool buffer callable ' +
+					'chr classmethod cmp coerce compile complex delattr dict dir ' +
+					'divmod enumerate eval execfile file filter float format frozenset ' +
+					'getattr globals hasattr hash help hex id input int intern ' +
+					'isinstance issubclass iter len list locals long map max min next ' +
+					'object oct open ord pow print property range raw_input reduce ' +
+					'reload repr reversed round set setattr slice sorted staticmethod ' +
+					'str sum super tuple type type unichr unicode vars xrange zip';
+
+		var special =  'None True False self cls class_';
+
+		this.regexList = [
+				{ regex: SyntaxHighlighter.regexLib.singleLinePerlComments, css: 'comments' },
+				{ regex: /^\s*@\w+/gm, 										css: 'decorator' },
+				{ regex: /(['\&quot;]{3})([^\1])*?\1/gm, 						css: 'comments' },
+				{ regex: /&quot;(?!&quot;)(?:\.|\\\&quot;|[^\&quot;&quot;\n])*&quot;/gm, 					css: 'string' },
+				{ regex: /'(?!')(?:\.|(\\\')|[^\''\n])*'/gm, 				css: 'string' },
+				{ regex: /\+|\-|\*|\/|\%|=|==/gm, 							css: 'keyword' },
+				{ regex: /\b\d+\.?\w*/g, 									css: 'value' },
+				{ regex: new RegExp(this.getKeywords(funcs), 'gmi'),		css: 'functions' },
+				{ regex: new RegExp(this.getKeywords(keywords), 'gm'), 		css: 'keyword' },
+				{ regex: new RegExp(this.getKeywords(special), 'gm'), 		css: 'color1' }
+				];
+			
+		this.forHtmlScript(SyntaxHighlighter.regexLib.aspScriptTags);
+	};
+
+	Brush.prototype	= new SyntaxHighlighter.Highlighter();
+	Brush.aliases	= ['py', 'python'];
+
+	SyntaxHighlighter.brushes.Python = Brush;
+
+	// CommonJS
+	typeof(exports) != 'undefined' ? exports.Brush = Brush : null;
+})();
+//}}}</pre>
+</div>
 <div title="ShBrushXml.js" modifier="pmario" created="201008171251" modified="201008171251" tags="systemConfig syntax">
 <pre>//{{{
 /**
@@ -1330,125 +1401,300 @@ config.formatters.push({
 })(config.formatters); //# end of alias
 //}}}</pre>
 </div>
-<div title="SyntaxHighlighterPlugin3Info" modifier="pmario" created="201008171251" modified="201008222209" tags="syntax">
+<div title="SyntaxHighlighterPlugin3Info" modifier="Seisachtheia" created="201008171251" modified="201202251739" tags="syntax" changecount="21">
 <pre>|''Name''|SyntaxHighlighterPlugin3Info|
 |''Description''|Documentation for [[SyntaxHighlighterPlugin3]]|
 |''Author''|PMario|
 |''Version''|0.2.0|
 |''Source''|http://syntaxhighlighter.tiddlyspace.com/#SyntaxHighlighterPlugin3|
 |''Documentation''|http://syntaxhighlighter.tiddlyspace.com/#SyntaxHighlighterPlugin3Info|
-|''License''|[[BSD|http://www.opensource.org/licenses/bsd-license.php]], libraries used: see the according files: [[ShCore.js]] |
+|''License''|[[BSD|http://www.opensource.org/licenses/bsd-license.php]], libraries used: see  [[ShCore.js]] |
 |''Keywords''|syntax highlighting color code|
 !Usage
-
-!!!!StyleSheet
+!!Setting up the styles to be used
 &lt;&lt;&lt;
-*add this to your StyleSheet
+Add the two lines below to your [[StyleSheet]]
 {{{
 [[ShCore.css]]
 [[ShThemeDefault.css]]
 }}}
 &lt;&lt;&lt;
-!!!!Macro
+!!!Using Other Themes
 &lt;&lt;&lt;
-*The macro is only needed if you have inline html blocks, like shown below.
+You can find more themes at the [[Themes page|http://alexgorbatchev.com/SyntaxHighlighter/manual/themes/]] of [[Alexander Gorbachev's SyntaxHighlighter|http://alexgorbatchev.com/SyntaxHighlighter]].
+To make use of other available themes:
+*create a tiddler with the name of the theme (e.g. {{{shThemeEclipse.css}}})
+*and include ('//transclude//') it in your [[StyleSheet]] as seen above, e.g.
+{{{
+[[ShCore.css]]
+[[ShThemeEclipse.css]]
+}}}
+*optionally you can tag it with {{{syntax}}} for finding it easier and
+* prepend and append with the followings to syntax highlight the theme itself
+{{{
+/*{{{*/
+}}}
+{{{
+/*}}}*/
+/***
+&lt;&lt;highlightSyntax&gt;&gt;
+***/
+}}}
+&lt;&lt;&lt;
+!!Syntax Highlighting via Special ~TiddlyWiki Markup
+&lt;&lt;&lt;
+!!!Plain Text
+{{{
+  {{{
+  Plain text goes here
+  }}}
+}}}
+will be rendered as
+{{{
+Plain text goes here
+}}}
+!!!CSS
+{{{
+  /*{{{*/
+  .syntaxhighlighter {
+      /* Ensure the code is behind the tagging */
+      z-index: -3 !important;
+      /* Avoid down-cut code borders */
+      padding: 5px 0px 5px 0px;
+  } 
+  /*}}}*/
+}}}
+will be rendered as
+/*{{{*/
+.syntaxhighlighter {
+    /* Ensure the code is behind the tagging */
+    z-index: -3 !important;
+    /* Avoid down-cut code borders */
+    padding: 5px 0px 5px 0px;
+} 
+/*}}}*/
+!!!XML
+{{{
+  &lt;!--{{{--&gt;
+  &lt;!-- The code will manipulate this element --&gt;
+  &lt;div id=&quot;target&quot;&gt;
+    &lt;p class=&quot;something&quot;&gt;
+      Content
+    &lt;/p&gt;
+  &lt;/div&gt;
+  &lt;!--}}}--&gt;
+}}}
+will be rendered as
 &lt;!--{{{--&gt;
-&lt;html&gt;
-	&lt;pre class='brush:pascal tab-size:3'&gt;
-		// your code 
-	&lt;pre&gt;
-&lt;/html&gt;
-
-&lt;&lt;highlightSyntax&gt;&gt; .. will render the &lt;pre&gt; blocks shown above.
+&lt;!-- The code will manipulate this element --&gt;
+&lt;div id=&quot;target&quot;&gt;
+  &lt;p class=&quot;something&quot;&gt;
+    Content
+  &lt;/p&gt;
+&lt;/div&gt;
 &lt;!--}}}--&gt;
+!!!~JavaScript
+{{{
+  //{{{
+  /* Add red border to &lt;div id=&quot;target&quot;&gt; element */
+  function red_border() {
+    $(&quot;div#id&quot;).css('border','thin solid red')
+  }
+  //}}}
+}}}
+will be rendered as
+//{{{
+/* Add red border to &lt;div id=&quot;target&quot;&gt; element */
+function red_border() {
+  $(&quot;div#target&quot;).css('border','thin solid red')
+}
+//}}}
 &lt;&lt;&lt;
-!!!!ViewTemplate
+!!Syntax Highlighting via Using the {{{&lt;&lt;highlightSyntax&gt;&gt;}}} Macro
 &lt;&lt;&lt;
-*Same as macro, but will be executed automatically for every tiddler.
+When dropping down to HTML embedded directly into a tiddler, the {{{&lt;&lt;highlightSyntax&gt;&gt;}}} macro can be used. In this usage scenario, the additional parameters provided by [[Alexander Gorbachev's SyntaxHighlighter|http://alexgorbatchev.com/SyntaxHighlighter]] can be utilized as well.
+The general usage is as follows:
+{{{
+  &lt;html&gt;
+  &lt;pre class=&quot;brush: &lt;brushToBeUsed&gt;[; &lt;additionalOption: additionalParameter1&gt;]*&gt;&quot;&gt;
+  Stuff to be highlighted goes here
+  &lt;/pre&gt;
+  &lt;/html&gt;
+  &lt;&lt;highlightSyntax&gt;&gt;
+}}}
+where
+*{{{brushToBeUsed}}} is the name of the 'brush' (i.e. the syntax highlighter) to be used for the contents between the {{{&lt;pre&gt;}}} and {{{&lt;/pre&gt;}}} blocks
+** the 'brush' should be present in your ~TiddlyWiki as a tiddler named as it appers on on the [[Bundled Brushes page of SyntaxHighlighter|http://alexgorbatchev.com/SyntaxHighlighter/manual/brushes/]]
+**if you do not have a brush, you can create on by
+***getting the needed brush from [[Bundled Brushes page of SyntaxHighlighter|http://alexgorbatchev.com/SyntaxHighlighter/manual/brushes/]] or from other sources, such as from the page [[All Syntax Highlighter 2.0 brushes collected, described and downloadable|http://www.undermyhat.org/blog/2009/09/list-of-brushes-syntaxhighligher/]] 
+***creating a tiddler named according to the brush file (e.g. {{{shBrushPyton.js}}}) and
+***tagging it with the {{{configOption}}} and {{{syntax}}} tags.
+***Optionally, you can make the new brush nicer by prepending and appending the following lines before and after the original script:
+{{{
+/***
+|''Requires''|ShCore.js|
+***/
+//{{{
+}}}
+{{{
+//}}}
+}}}
+*{{{&lt;additionalOption: additionalParameter&gt;}}}:  is zero or more pairs of [[option and its required parameter as supported by SyntaxHighligher|http://alexgorbatchev.com/SyntaxHighlighter/manual/configuration#syntaxhighlighterdefaults]].
+!!!General example
+{{{
+ 	&lt;html&gt;
+	&lt;pre class=&quot;brush: python; tab-size:4; first-line: 2; highlight:[3,5]&gt;&quot;&gt;
+	# -*- encoding: utf-8 -*-
+		if __name__ == '__main__'
+			import os
+			# Print OS information
+			print (os.uname())
+	&lt;/pre&gt;
+	&lt;/html&gt;
+	&lt;&lt;highlightSyntax&gt;&gt;
+}}}
+will render the content between the {{{&lt;pre ...&gt;}}} and {{{&lt;/pre&gt;}}} tags
+*highlighted according to the syntax of //''Python''// (if you do have the {{{shBrushPython.js}}} tiddler available tagged with {{{configOption}}} and {{{syntax}}})
+*with a tab-size of //''4''// spaces (__if__ the content __does__ contain tabs)
+*with a starting line number of //''2''// and
+*with the //''3^^rd^^''// and //''5^^th^^''// lines highlighted
+&lt;html&gt;
+&lt;pre class=&quot;brush: python; tab-size:4; first-line: 2; highlight:[3,5]&gt;&quot;&gt;
+# -*- encoding: utf-8 -*-
+if __name__ == '__main__'
+	import os
+	# Print OS information
+	print (os.uname())
+&lt;/pre&gt;
+&lt;/html&gt;
+&lt;&lt;highlightSyntax&gt;&gt;
+!!!Plain Text Example
+{{{
+  &lt;html&gt;
+  &lt;pre class=&quot;brush: text&quot;&gt;
+  Plain text goes here
+  &lt;/pre&gt;
+  &lt;/html&gt;
+  &lt;&lt;highlightSyntax&gt;&gt;
+}}}
+will be rendered as
+&lt;html&gt;
+&lt;pre class=&quot;brush: text&quot;&gt;
+Plain text goes here
+&lt;/pre&gt;
+&lt;/html&gt;
+&lt;&lt;highlightSyntax&gt;&gt;
+!!!CSS Example
+{{{
+  &lt;html&gt;
+  &lt;pre class=&quot;brush:css&quot;&gt;
+  .syntaxhighlighter {
+      /* Ensure the code is behind the tagging */
+      z-index: -3 !important;
+      /* Avoid down-cut code borders */
+      padding: 5px 0px 5px 0px;
+  } 
+  &lt;/pre&gt;
+  &lt;/html&gt;
+  &lt;&lt;highlightSyntax&gt;&gt;
+}}}
+will be rendered as
+&lt;html&gt;
+&lt;pre class=&quot;brush:css&quot;&gt;
+  .syntaxhighlighter {
+      /* Ensure the code is behind the tagging */
+      z-index: -3 !important;
+      /* Avoid down-cut code borders */
+      padding: 5px 0px 5px 0px;
+  } 
+&lt;/pre&gt;
+&lt;/html&gt;
+&lt;&lt;highlightSyntax&gt;&gt;
+!!!XML Example
+{{{
+  &lt;html&gt;
+  &lt;pre class=&quot;brush:xml&quot;&gt;
+  &lt;!-- The code will manipulate this element --&gt;
+  &lt;div id=&quot;target&quot;&gt;
+      &lt;p class=&quot;something&quot;&gt;
+          Content
+      &lt;/p&gt;
+  &lt;/div&gt;
+  &lt;/pre&gt;
+  &lt;/html&gt;
+  &lt;&lt;highlightSyntax&gt;&gt;
+}}}
+will be rendered as
+&lt;html&gt;
+&lt;pre class=&quot;brush:xml&quot;&gt;
+&lt;!-- The code will manipulate this element --&gt;
+&lt;div id=&quot;target&quot;&gt;
+    &lt;p class=&quot;something&quot;&gt;
+        Content
+    &lt;/p&gt;
+&lt;/div&gt;
+&lt;/pre&gt;
+&lt;/html&gt;
+&lt;&lt;highlightSyntax&gt;&gt;
+!!!~JavaScript Example
+{{{
+  &lt;html&gt;
+  &lt;pre class=&quot;brush:js&quot;&gt;
+  /* Add red border to &lt;div id=&quot;target&quot;&gt; element */
+  function red_border() {
+    $(&quot;div#id&quot;).css('border','thin solid red')
+  }
+  &lt;/pre&gt;
+  &lt;/html&gt;
+  &lt;&lt;highlightSyntax&gt;&gt;
+}}}
+will be rendered as
+&lt;html&gt;
+&lt;pre class=&quot;brush:js&quot;&gt;
+/* Add red border to &lt;div id=&quot;target&quot;&gt; element */
+function red_border() {
+    $(&quot;div#id&quot;).css('border','thin solid red')
+}
+&lt;/pre&gt;
+&lt;/html&gt;
+&lt;&lt;highlightSyntax&gt;&gt;
+&lt;&lt;&lt;
+!!Using the {{{&lt;&lt;highlightSyntax&gt;&gt;}}} Macro in the ~ViewTemplate
+&lt;&lt;&lt;
+If the {{{&lt;&lt;highlightSyntax&gt;&gt;}}} macro is placed into your ViewTemplate, it will be automatically executed for the tiddlers, i.e. without adding the {{{&lt;&lt;highlightSyntax&gt;&gt;}}} macro into the content of a tiddler.
+To utilize the plugin this way, include the line {{{&lt;div macro='highlightSyntax'&gt;&lt;/div&gt;}}}  into your ViewTemplate.
+For example, if your original ViewTemplate contains the following:
 &lt;!--{{{--&gt;
-&lt;div class='tagging' macro='tagging'&gt;&lt;/div&gt;
-&lt;div macro='highlightSyntax'&gt;&lt;/div&gt;  &lt;!-- insert this line --&gt;
+&lt;div class='toolbar' macro='toolbar [[ToolbarCommands::ViewToolbar]]'&gt;&lt;/div&gt;
+&lt;!--
+	...
+--&gt;
+&lt;div class='viewer' macro='view text wikified'&gt;&lt;/div&gt;
 &lt;div class='tagClear'&gt;&lt;/div&gt;
 &lt;!--}}}--&gt;
-&lt;&lt;&lt;
-!!!!Parameters
-&lt;&lt;&lt;
-{{{&lt;&lt;highlightSyntax [tagName]&gt;&gt;}}}
-*will render all blocks, with any defined tag name. eg: tagName = code.
-*[tagName] is optional. Default is &quot;pre&quot;.
-&lt;&lt;&lt;
-!!Examples
-!!!!Text
-&lt;&lt;&lt;
-{{{
- {{{
- this will be rendered as text!
- }}}
-}}}
-&lt;&lt;&lt;
-!!!!CSS
-&lt;&lt;&lt;
-{{{
- /*{{{*/
- .cssClass {
-	display: block; !important;
- }
- /*}}}*/
-}}}
-will render like:
-/*{{{*/
-	.cssClass {
-		display: block; !important;
-	}
-/*}}}*/
-&lt;&lt;&lt;
-!!!!XML
-&lt;&lt;&lt;
-{{{
-&lt;!--{{{--&gt;
+then change it to the content below (note the 6^^th^^, highlighted line).
 &lt;html&gt;
-	&lt;div id='myId' class='dp50'&gt;some text &lt;/div&gt;
+&lt;pre class=&quot;brush: xml; highlight: 6&quot;&gt;
+&lt;div class='toolbar' macro='toolbar [[ToolbarCommands::ViewToolbar]]'&gt;&lt;/div&gt;
+&lt;!--
+	...
+--&gt;
+&lt;div class='viewer' macro='view text wikified'&gt;&lt;/div&gt;
+&lt;div macro='highlightSyntax'&gt;&lt;/div&gt;
+&lt;div class='tagClear'&gt;&lt;/div&gt;
+&lt;/pre&gt;
 &lt;/html&gt;
-&lt;!--}}}--&gt;
-}}}
-will render like:
-&lt;!--{{{--&gt;
-&lt;html&gt;
-	&lt;div id='myId' class='dp50'&gt;some text &lt;/div&gt;
-&lt;/html&gt;
-&lt;!--}}}--&gt;
-&lt;&lt;&lt;
-!!!!Plugin
-&lt;&lt;&lt;
-{{{
-//{{{
-(function($) {
-	config.macros.highlightSyntax = {
-		var a = b = 0;
-		// your code here!
-	}
-})(jQuery);
-//}}}
-}}}
-will render like:
-//{{{
-(function($) {
-	config.macros.highlightSyntax = {
-		var a = b = 0;
-		// your code here!
-	}
-})(jQuery);
-//}}}
+&lt;&lt;highlightSyntax&gt;&gt;
 &lt;&lt;&lt;
 !!Configuration Options
 &lt;&lt;&lt;
 Guess syntax: &lt;&lt;option chkGuessSyntax&gt;&gt; .. If activated, ~TiddlyWiky &lt;pre&gt; blocks will be rendered according to there block braces, like described obove.
 Expert mode: &lt;&lt;option chkExpertSyntax&gt;&gt; .. If activated, additional values below will be used
 
-{{{ {{{ }}} txtShText: &lt;&lt;option txtShText&gt;&gt; eg: 'brush:text tab-size:4 + options'
-{{{ /*{{{*/ }}} txtShCss: &lt;&lt;option txtShCss&gt;&gt; eg: 'brush:css  + options'
-{{{ //{{{ }}} txtShPlugin: &lt;&lt;option txtShPlugin&gt;&gt; 'brush:js  + options'
-{{{ &lt;!--{{{--&gt;&gt; }}} txtShXml: &lt;&lt;option txtShXml&gt;&gt; 'brush:xml  + options'
+{{{ {{{ }}} txtShText: &lt;&lt;option txtShText&gt;&gt; eg: {{{brush:text; gutter: false}}}
+{{{ /*{{{ }}} txtShCss: &lt;&lt;option txtShCss&gt;&gt; eg: {{{brush:css; tab-size: 4}}}
+{{{ //{{{ }}} txtShPlugin: &lt;&lt;option txtShPlugin&gt;&gt; e.g.: {{{brush:js; tab-size:4}}}
+{{{ &lt;!--{{{--&gt;&gt; }}} txtShXml: &lt;&lt;option txtShXml&gt;&gt; e.g.: {{{brush:xml; tab-size:4}}}
 
 If you want to change the default values, add the following to a [[zzConfig]] tiddler and tag it &quot;systemConfig&quot;
 //{{{
@@ -1457,7 +1703,6 @@ config.options.chkExpertSyntax = false;
 
 config.options.txtShPlugin = 'brush:js tab-size:4';
 //}}}
-
 All possible options can be found at: [[SyntaxHighlighter homepage|http://alexgorbatchev.com/SyntaxHighlighter/manual/configuration/]]
 &lt;&lt;&lt;
 
@@ -1468,8 +1713,7 @@ All possible options can be found at: [[SyntaxHighlighter homepage|http://alexgo
 *V 0.1.0 2010-08-17
 **initial release
 !!!Needed: list tagged syntax
-&lt;&lt;list filter [tag[syntax]]&gt;&gt;
-</pre>
+&lt;&lt;list filter [tag[syntax]]&gt;&gt;</pre>
 </div>
 <div title="Test SyntaxHighlighter3Plugin" creator="YourName" modifier="YourName" created="201202251558" changecount="1">
 <pre>/*{{{*/
