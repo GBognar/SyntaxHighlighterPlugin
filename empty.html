@@ -1401,7 +1401,7 @@ config.formatters.push({
 })(config.formatters); //# end of alias
 //}}}</pre>
 </div>
-<div title="SyntaxHighlighterPlugin3Info" modifier="Seisachtheia" created="201008171251" modified="201202251739" tags="syntax" changecount="21">
+<div title="SyntaxHighlighterPlugin3Info" modifier="Seisachtheia" created="201008171251" modified="201202251943" tags="syntax" changecount="51">
 <pre>|''Name''|SyntaxHighlighterPlugin3Info|
 |''Description''|Documentation for [[SyntaxHighlighterPlugin3]]|
 |''Author''|PMario|
@@ -1443,6 +1443,10 @@ To make use of other available themes:
 &lt;&lt;&lt;
 !!Syntax Highlighting via Special ~TiddlyWiki Markup
 &lt;&lt;&lt;
+* Content between &quot;&quot;&quot;{{{&quot;&quot;&quot; and &quot;&quot;&quot;}}}&quot;&quot;&quot; will be highlighted as plain text. (Note that it is not the same as using &quot;&quot;&quot;{{{&quot;&quot;&quot; and &quot;&quot;&quot;}}}&quot;&quot;&quot; without the SyntaxHighlighterPlugin3 plugin.)
+* Content between &quot;&quot;&quot;/*{{{*/&quot;&quot;&quot; and &quot;&quot;&quot;/*}}}*/&quot;&quot;&quot; will be highlighted as CSS.
+* Content between &quot;&quot;&quot;&lt;!--{{{--&gt;&quot;&quot;&quot; and &quot;&quot;&quot;&lt;!--}}}--&gt;&quot;&quot;&quot; will be highlighted as XML.
+* Content between &quot;&quot;&quot;//{{{&quot;&quot;&quot; and &quot;&quot;&quot;//}}}&quot;&quot;&quot; will be highlighted as ~JavaScript.
 !!!Plain Text
 {{{
   {{{
@@ -1687,15 +1691,35 @@ then change it to the content below (note the 6^^th^^, highlighted line).
 &lt;&lt;highlightSyntax&gt;&gt;
 &lt;&lt;&lt;
 !!Configuration Options
+!!!The 'Guess syntax' and 'Expert mode' Options
+The 'Guess syntax' and 'Expert mode' options
 &lt;&lt;&lt;
-Guess syntax: &lt;&lt;option chkGuessSyntax&gt;&gt; .. If activated, ~TiddlyWiky &lt;pre&gt; blocks will be rendered according to there block braces, like described obove.
-Expert mode: &lt;&lt;option chkExpertSyntax&gt;&gt; .. If activated, additional values below will be used
-
-{{{ {{{ }}} txtShText: &lt;&lt;option txtShText&gt;&gt; eg: {{{brush:text; gutter: false}}}
-{{{ /*{{{ }}} txtShCss: &lt;&lt;option txtShCss&gt;&gt; eg: {{{brush:css; tab-size: 4}}}
-{{{ //{{{ }}} txtShPlugin: &lt;&lt;option txtShPlugin&gt;&gt; e.g.: {{{brush:js; tab-size:4}}}
-{{{ &lt;!--{{{--&gt;&gt; }}} txtShXml: &lt;&lt;option txtShXml&gt;&gt; e.g.: {{{brush:xml; tab-size:4}}}
-
+@todo@ Write about their combined behaviour.
+&lt;&lt;&lt;
+!!!!The 'Guess syntax' Option
+&lt;&lt;&lt;
+The {{{Guess syntax}}} option can be set in the cell below or in the [[SyntaxHighlighterPlugin3]].
+|''Guess syntax:''| &lt;&lt;option chkGuessSyntax&gt;&gt;|
+If the {{{Guess syntax}}} option __is activated__, syntax highlighting will occure according to the used //block braces// as described above. So
+* content between &quot;&quot;&quot;{{{&quot;&quot;&quot; and &quot;&quot;&quot;}}}&quot;&quot;&quot; will be highlighted as plain text, using the [[plain text syntax highlighter|ShBrushPlain.js]]
+* content between &quot;&quot;&quot;/*{{{*/&quot;&quot;&quot; and &quot;&quot;&quot;/*}}}*/&quot;&quot;&quot; will be highlighted as CSS, using the [[CSS syntax highlighter|ShBrushCSS.js]]
+* content between &quot;&quot;&quot;&lt;!--{{{--&gt;&quot;&quot;&quot; and &quot;&quot;&quot;&lt;!--}}}--&gt;&quot;&quot;&quot; will be highlighted as XML and, using the [[XML syntax highlighter|ShBrushXml.js]]
+* content between &quot;&quot;&quot;//{{{&quot;&quot;&quot; and &quot;&quot;&quot;//}}}&quot;&quot;&quot; will be highlighted as ~JavaScript, using the [[JavaScript syntax highlighter|ShBrushJScript.js]]
+If the {{{Guess syntax}}} option __is ''not'' activated__, syntax highlighting will __not__ occure in cases where the //block braces// are used.
+Of course, other syntax highlighting solutions will still work, so content between {{{&lt;html&gt;&lt;pre class=&quot;brush: ...&quot;&gt;}}} and {{{&lt;/pre&gt;&lt;/html&gt;}}} will __still__ be syntax highlighted.
+&lt;&lt;&lt;
+!!!!The 'Expert mode' Option
+&lt;&lt;&lt;
+The {{{Expert mode}}} option can be set in the cell below or in the [[SyntaxHighlighterPlugin3]].
+|''Expert mode:''| &lt;&lt;option chkExpertSyntax&gt;&gt;|
+If the {{{Expert mode}}} option __is activated__, the syntax highlighting for contents between //block braces// will be according to the parameters set below (or in the [[SyntaxHighlighterPlugin3]]):
+|Content between &quot;&quot;&quot;{{{&quot;&quot;&quot; and &quot;&quot;&quot;}}}&quot;&quot;&quot; will be highlighted using| &lt;&lt;option txtShText&gt;&gt;|e.g.: {{{brush:text; gutter: false}}}|
+|Content between &quot;&quot;&quot;/*{{{*/&quot;&quot;&quot; and &quot;&quot;&quot;/*}}}*/&quot;&quot;&quot; will be highlighted using| &lt;&lt;option txtShCss&gt;&gt;|e.g.: {{{brush:css; tab-size: 4}}}|
+|Content between &quot;&quot;&quot;&lt;!--{{{--&gt;&quot;&quot;&quot; and &quot;&quot;&quot;&lt;!--}}}--&gt;&quot;&quot;&quot; will be highlighted using| &lt;&lt;option txtShXml&gt;&gt;|e.g.: {{{brush:xml; tab-size:4}}}|
+|Content between &quot;&quot;&quot;//{{{&quot;&quot;&quot; and &quot;&quot;&quot;//}}}&quot;&quot;&quot; will be highlighted  using|&lt;&lt;option txtShPlugin&gt;&gt;|e.g.: {{{brush:js; tab-size:4}}}|
+&lt;&lt;&lt;
+!!!Configuring Default Values for Options
+&lt;&lt;&lt;
 If you want to change the default values, add the following to a [[zzConfig]] tiddler and tag it &quot;systemConfig&quot;
 //{{{
 config.options.chkGuessSyntax = true;
@@ -1703,7 +1727,7 @@ config.options.chkExpertSyntax = false;
 
 config.options.txtShPlugin = 'brush:js tab-size:4';
 //}}}
-All possible options can be found at: [[SyntaxHighlighter homepage|http://alexgorbatchev.com/SyntaxHighlighter/manual/configuration/]]
+All possible options can be found at the [[Configuration page|http://alexgorbatchev.com/SyntaxHighlighter/manual/configuration/]] of [[Alexander Gorbachev's SyntaxHighlighter|http://alexgorbatchev.com/SyntaxHighlighter]].
 &lt;&lt;&lt;
 
 !!!Revision History
@@ -1715,12 +1739,60 @@ All possible options can be found at: [[SyntaxHighlighter homepage|http://alexgo
 !!!Needed: list tagged syntax
 &lt;&lt;list filter [tag[syntax]]&gt;&gt;</pre>
 </div>
-<div title="Test SyntaxHighlighter3Plugin" creator="YourName" modifier="YourName" created="201202251558" changecount="1">
-<pre>/*{{{*/
+<div title="Test SyntaxHighlighter3Plugin via Macro" creator="Seisachtheia" modifier="Seisachtheia" created="201202251803" modified="201202251927" changecount="20">
+<pre>&lt;html&gt;
+&lt;pre class=&quot;brush: text&quot;&gt;
+Plain text
+and again
+plain text
+&lt;/pre&gt;
+&lt;/html&gt;
+&lt;html&gt;
+&lt;pre class=&quot;brush: css&quot;&gt;
+/* CSS */
 body {
-    z-index: -3 !important;
+	z-index: -3 !important;
+}
+&lt;/pre&gt;
+&lt;/html&gt;
+&lt;html&gt;
+&lt;pre class=&quot;brush: xml&quot;&gt;
+&lt;!-- XML --&gt;
+&lt;div id=&quot;target&quot;&gt;
+	&lt;span id=&quot;subtarget&quot;&gt;Content&lt;/span&gt;
+&lt;/div&gt;
+&lt;/pre&gt;
+&lt;/html&gt;
+&lt;html&gt;
+&lt;pre class=&quot;brush: jscript&quot;&gt;
+/* JavaScript */
+$(&quot;div#target&quot;).css('border','thin solid red');
+&lt;/pre&gt;
+&lt;/html&gt;
+&lt;&lt;highlightSyntax&gt;&gt;</pre>
+</div>
+<div title="Test SyntaxHighlighter3Plugin via Markup" creator="YourName" modifier="Seisachtheia" created="201202251558" modified="201202251942" changecount="25">
+<pre>{{{
+Plain text
+and again
+plain text
+}}}
+/*{{{*/
+/* CSS */
+body {
+	z-index: -3 !important;
 }
 /*}}}*/
+&lt;!--{{{--&gt;
+&lt;!-- XML --&gt;
+&lt;div id=&quot;target&quot;&gt;
+	&lt;span id=&quot;subtarget&quot;&gt;Content&lt;/span&gt;
+&lt;/div&gt;
+&lt;!--}}}--&gt;
+//{{{
+/* JavaScript */
+$(&quot;div#target&quot;).css('border','thin solid red');
+//}}}
 </pre>
 </div>
 <div title="zzConfig" modifier="pmario" created="201008221908" modified="201008221944" tags="systemConfig">
