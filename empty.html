@@ -1401,7 +1401,7 @@ config.formatters.push({
 })(config.formatters); //# end of alias
 //}}}</pre>
 </div>
-<div title="SyntaxHighlighterPlugin3Info" modifier="Seisachtheia" created="201008171251" modified="201202251943" tags="syntax" changecount="51">
+<div title="SyntaxHighlighterPlugin3Info" modifier="GBognar" created="201008171251" modified="201202261542" tags="syntax" changecount="79">
 <pre>|''Name''|SyntaxHighlighterPlugin3Info|
 |''Description''|Documentation for [[SyntaxHighlighterPlugin3]]|
 |''Author''|PMario|
@@ -1691,12 +1691,7 @@ then change it to the content below (note the 6^^th^^, highlighted line).
 &lt;&lt;highlightSyntax&gt;&gt;
 &lt;&lt;&lt;
 !!Configuration Options
-!!!The 'Guess syntax' and 'Expert mode' Options
-The 'Guess syntax' and 'Expert mode' options
-&lt;&lt;&lt;
-@todo@ Write about their combined behaviour.
-&lt;&lt;&lt;
-!!!!The 'Guess syntax' Option
+!!!The 'Guess syntax' Option
 &lt;&lt;&lt;
 The {{{Guess syntax}}} option can be set in the cell below or in the [[SyntaxHighlighterPlugin3]].
 |''Guess syntax:''| &lt;&lt;option chkGuessSyntax&gt;&gt;|
@@ -1708,38 +1703,72 @@ If the {{{Guess syntax}}} option __is activated__, syntax highlighting will occu
 If the {{{Guess syntax}}} option __is ''not'' activated__, syntax highlighting will __not__ occure in cases where the //block braces// are used.
 Of course, other syntax highlighting solutions will still work, so content between {{{&lt;html&gt;&lt;pre class=&quot;brush: ...&quot;&gt;}}} and {{{&lt;/pre&gt;&lt;/html&gt;}}} will __still__ be syntax highlighted.
 &lt;&lt;&lt;
-!!!!The 'Expert mode' Option
+!!!The 'Expert mode' Option
 &lt;&lt;&lt;
 The {{{Expert mode}}} option can be set in the cell below or in the [[SyntaxHighlighterPlugin3]].
 |''Expert mode:''| &lt;&lt;option chkExpertSyntax&gt;&gt;|
 If the {{{Expert mode}}} option __is activated__, the syntax highlighting for contents between //block braces// will be according to the parameters set below (or in the [[SyntaxHighlighterPlugin3]]):
-|Content between &quot;&quot;&quot;{{{&quot;&quot;&quot; and &quot;&quot;&quot;}}}&quot;&quot;&quot; will be highlighted using| &lt;&lt;option txtShText&gt;&gt;|e.g.: {{{brush:text; gutter: false}}}|
-|Content between &quot;&quot;&quot;/*{{{*/&quot;&quot;&quot; and &quot;&quot;&quot;/*}}}*/&quot;&quot;&quot; will be highlighted using| &lt;&lt;option txtShCss&gt;&gt;|e.g.: {{{brush:css; tab-size: 4}}}|
-|Content between &quot;&quot;&quot;&lt;!--{{{--&gt;&quot;&quot;&quot; and &quot;&quot;&quot;&lt;!--}}}--&gt;&quot;&quot;&quot; will be highlighted using| &lt;&lt;option txtShXml&gt;&gt;|e.g.: {{{brush:xml; tab-size:4}}}|
-|Content between &quot;&quot;&quot;//{{{&quot;&quot;&quot; and &quot;&quot;&quot;//}}}&quot;&quot;&quot; will be highlighted  using|&lt;&lt;option txtShPlugin&gt;&gt;|e.g.: {{{brush:js; tab-size:4}}}|
+|Content between &quot;&quot;&quot;{{{&quot;&quot;&quot; and &quot;&quot;&quot;}}}&quot;&quot;&quot; will be highlighted using| &lt;&lt;option txtShText&gt;&gt;|e.g.: {{{brush:text; gutter: false}}}|sets the option {{{txtShText}}}|
+|Content between &quot;&quot;&quot;/*{{{*/&quot;&quot;&quot; and &quot;&quot;&quot;/*}}}*/&quot;&quot;&quot; will be highlighted using| &lt;&lt;option txtShCss&gt;&gt;|e.g.: {{{brush:css; tab-size: 4}}}|sets the option {{{txtShCss}}}|
+|Content between &quot;&quot;&quot;&lt;!--{{{--&gt;&quot;&quot;&quot; and &quot;&quot;&quot;&lt;!--}}}--&gt;&quot;&quot;&quot; will be highlighted using| &lt;&lt;option txtShXml&gt;&gt;|e.g.: {{{brush:xml; tab-size:4}}}|sets the option {{{txtShXml}}}|
+|Content between &quot;&quot;&quot;//{{{&quot;&quot;&quot; and &quot;&quot;&quot;//}}}&quot;&quot;&quot; will be highlighted  using|&lt;&lt;option txtShPlugin&gt;&gt;|e.g.: {{{brush:js; tab-size:4}}}|sets the option {{{txtShPlugin}}}|
 &lt;&lt;&lt;
 !!!Configuring Default Values for Options
 &lt;&lt;&lt;
-If you want to change the default values, add the following to a [[zzConfig]] tiddler and tag it &quot;systemConfig&quot;
+Default options can be set by
+*creating a tiddler 
+*tagging it with {{{systemConfig}}}
+*and setting values for the 
+**{{{chkGuessSyntax}}}
+**{{{chkExpertSyntax}}}
+**{{{txtShText}}}
+**{{{txtShCss}}}
+**{{{txtShXml}}} and
+**{{{txtShPlugin}}} options in it.
+For example:
 //{{{
-config.options.chkGuessSyntax = true;
-config.options.chkExpertSyntax = false;
-
+config.options.chkGuessSyntax = true; //or false;
+config.options.chkExpertSyntax = false; //or true
+config.options.txtShText = 'brush:text; gutter: false';
+config.options.txtShCss = 'brush:css tab-size:4';
+config.options.txtShXml = 'brush:xml tab-size:4';
 config.options.txtShPlugin = 'brush:js tab-size:4';
 //}}}
-All possible options can be found at the [[Configuration page|http://alexgorbatchev.com/SyntaxHighlighter/manual/configuration/]] of [[Alexander Gorbachev's SyntaxHighlighter|http://alexgorbatchev.com/SyntaxHighlighter]].
+*{{{chkGuessSyntax}}} (with {{{true}}}) enables or (with {{{false}}}) disables the {{{Guess syntax}}} mode.
+*{{{chkExpertSyntax}}} (with {{{true}}}) enables or (with {{{false}}}) disables the {{{Expert mode}}}.
+*{{{txtShText}}}, {{{txtShCss}}}, {{{txtShXml}}} and {{{txtShPlugin}}} sets parameter for the //brush// to be used when highlighting syntax. The possible values for these options can be found at the [[SyntaxHighlighter.defaults |http://alexgorbatchev.com/SyntaxHighlighter/manual/configuration/#syntaxhighlighterdefaults]] section of the [[Configuration page|http://alexgorbatchev.com/SyntaxHighlighter/manual/configuration/]] of [[Alexander Gorbachev's SyntaxHighlighter|http://alexgorbatchev.com/SyntaxHighlighter]].
+__''Notes''__:
+*The {{{txtShText}}}, {{{txtShCss}}}, {{{txtShXml}}} and {{{txtShPlugin}}} options set this way will have effects only if {{{Expert mode}}} is activated.
+*The {{{txtShText}}}, {{{txtShCss}}}, {{{txtShXml}}} and {{{txtShPlugin}}} options will effect only contents between //block braces//.
 &lt;&lt;&lt;
-
-!!!Revision History
+!Revision History
+&lt;&lt;&lt;
+*V 0.2.2 2012-02-26
+**More detailed documentation
 *V 0.2.0 2010-08-22
 **New formatter for {{{&lt;code class='brush:???'&gt;}}} is available now
 **expert mode uses config options now
 *V 0.1.0 2010-08-17
 **initial release
-!!!Needed: list tagged syntax
-&lt;&lt;list filter [tag[syntax]]&gt;&gt;</pre>
+&lt;&lt;&lt;
+!Requirements
+&lt;&lt;&lt;
+*[[ShCore.js]]
+*[[ShCore.css]]
+*[[ShThemeDefault.css]]
+*[[ShBrushPlain.js]]
+*[[ShBrushCSS.js]]
+*[[ShBrushJScript.js]]
+*[[ShBrushXml.js]]
+*[[SyntaxHighlighterPlugin3]]
+&lt;&lt;&lt;
+!!Optional requirements
+&lt;&lt;&lt;
+*[[SyntaxHighlighterPlugin3Info]] for documentation
+*[[ShBrushPython.js]] for a working 'General Example' in the [[SyntaxHighlighterPlugin3Info]] documentation
+&lt;&lt;&lt;</pre>
 </div>
-<div title="Test SyntaxHighlighter3Plugin via Macro" creator="Seisachtheia" modifier="Seisachtheia" created="201202251803" modified="201202251927" changecount="20">
+<div title="Test SyntaxHighlighter3Plugin via Macro" creator="Seisachtheia" modifier="GBognar" created="201202251803" modified="201202261002" changecount="35">
 <pre>&lt;html&gt;
 &lt;pre class=&quot;brush: text&quot;&gt;
 Plain text
@@ -1748,7 +1777,7 @@ plain text
 &lt;/pre&gt;
 &lt;/html&gt;
 &lt;html&gt;
-&lt;pre class=&quot;brush: css&quot;&gt;
+&lt;pre class=&quot;brush: css;&quot;&gt;
 /* CSS */
 body {
 	z-index: -3 !important;
@@ -1771,7 +1800,7 @@ $(&quot;div#target&quot;).css('border','thin solid red');
 &lt;/html&gt;
 &lt;&lt;highlightSyntax&gt;&gt;</pre>
 </div>
-<div title="Test SyntaxHighlighter3Plugin via Markup" creator="YourName" modifier="Seisachtheia" created="201202251558" modified="201202251942" changecount="25">
+<div title="Test SyntaxHighlighter3Plugin via Markup" creator="YourName" modifier="GBognar" created="201202251558" modified="201202261001" changecount="40">
 <pre>{{{
 Plain text
 and again
@@ -1794,11 +1823,6 @@ body {
 $(&quot;div#target&quot;).css('border','thin solid red');
 //}}}
 </pre>
-</div>
-<div title="zzConfig" modifier="pmario" created="201008221908" modified="201008221944" tags="systemConfig">
-<pre>//{{{
-config.options.chkGuessSyntax = true;
-//}}}</pre>
 </div>
 </div>
 <!--POST-STOREAREA-->
