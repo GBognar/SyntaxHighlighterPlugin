@@ -1228,72 +1228,50 @@ eval(function(p,a,c,k,e,d){e=function(c){return(c&lt;a?'':e(parseInt(c/a)))+((c=
 <pre>[[ShCore.css]]
 [[ShThemeDefault.css]]</pre>
 </div>
-<div title="SyntaxHighlighterPlugin3" creator="pmario" modifier="pmario" created="201009071234" modified="201202251615" tags="systemConfig syntax" changecount="2">
+<div title="SyntaxHighlighterPlugin3" creator="pmario" modifier="GBognar" created="201009071234" modified="201202261818" tags="systemConfig syntax" changecount="26">
 <pre>/***
 |''Name''|SyntaxHighlighterPlugin3|
 |''Description''|Enables syntax highlighting|
 |''Author''|PMario|
-|''Version''|0.2.0|
+|''Version''|0.2.3|
 |''Status''|''beta''|
 |''Source''|http://syntaxhighlighter.tiddlyspace.com/#SyntaxHighlighterPlugin3|
 |''License''|[[BSD|http://www.opensource.org/licenses/bsd-license.php]]|
 |''CoreVersion''|2.5.0|
 |''Requires''|ShCore.js|
 |''Keywords''|syntax highlighting color code|
-!Documentation
-*see: [[SyntaxHighlighterPlugin3Info]]
 !Description
-Enables syntax highlighting for &lt;pre&gt; and &lt;code&gt; blocks. Adds a new formatter for {{{&lt;code class='brush:???'&gt;}}} 
-!Usage
-!!!!StyleSheet
+Enables syntax highlighting for &lt;pre&gt; and &lt;code&gt; blocks. Adds a new formatter for {{{&lt;code class='brush:???'&gt;}}}. 
+!Documentation
+See: [[SyntaxHighlighterPlugin3Info]]
+!Configuration options
 &lt;&lt;&lt;
-*add this to your StyleSheet
-{{{
-[[ShCore.css]]
-[[ShThemeDefault.css]]
-}}}
-&lt;&lt;&lt;
-!!!!Macro
-&lt;&lt;&lt;
-*The macro is only needed if you have inline html blocks. see: [[SyntaxHighlighterPlugin3Info]]
-&lt;&lt;&lt;
-!!!!ViewTemplate
-&lt;&lt;&lt;
-*Same as macro, but will be executed automatically for every tiddler. see: [[SyntaxHighlighterPlugin3Info]]
-&lt;&lt;&lt;
-!!!!Parameters
-&lt;&lt;&lt;
-{{{&lt;&lt;highlightSyntax [tagName]&gt;&gt; }}}
-*will render all blocks, with any defined tag name. eg: tagName = code.
-*[tagName] is optional. Default is &quot;pre&quot;.
-&lt;&lt;&lt;
-!!!!Configuration options
-&lt;&lt;&lt;
-Guess syntax: &lt;&lt;option chkGuessSyntax&gt;&gt; .. If activated, ~TiddlyWiky &lt;pre&gt; blocks will be rendered according to there block braces. see [[SyntaxHighlighterPlugin3Info]]
-Expert mode: &lt;&lt;option chkExpertSyntax&gt;&gt; .. If activated, additional values below will be used. see [[SyntaxHighlighterPlugin3Info]]
+|''Guess syntax:''| &lt;&lt;option chkGuessSyntax&gt;&gt;|
 
-{{{ {{{ }}} txtShText: &lt;&lt;option txtShText&gt;&gt; eg: 'brush:text tab-size:4 + options'
-{{{ /*{{{* / }}} txtShCss: &lt;&lt;option txtShCss&gt;&gt; eg: 'brush:css  + options'
-{{{ //{{{ }}} txtShPlugin: &lt;&lt;option txtShPlugin&gt;&gt; 'brush:js  + options'
-{{{ &lt;!--{{{--&gt;&gt; }}} txtShXml: &lt;&lt;option txtShXml&gt;&gt; 'brush:xml  + options'
-
-Additional options can be found at: [[SyntaxHighlighter homepage|http://alexgorbatchev.com/SyntaxHighlighter/manual/configuration/]]
+|''Expert mode:''| &lt;&lt;option chkExpertSyntax&gt;&gt;|
+ 
+If the {{{Expert mode}}} option __is activated__, the syntax highlighting for contents between //block braces// will be according to the parameters set below
+|Content between &quot;&quot;&quot;{{{&quot;&quot;&quot; and &quot;&quot;&quot;}}}&quot;&quot;&quot; will be highlighted using| &lt;&lt;option txtShText&gt;&gt;|e.g.: {{{brush:text; gutter: false}}}|sets the option {{{txtShText}}}|
+|Content between &quot;&quot;&quot;/&quot;&quot;&quot;&quot;&quot;&quot;*{{{*&quot;&quot;&quot;&quot;&quot;&quot;/&quot;&quot;&quot; and &quot;&quot;&quot;/&quot;&quot;&quot;&quot;&quot;&quot;*}}}*&quot;&quot;&quot;&quot;&quot;&quot;/&quot;&quot;&quot; will be highlighted using| &lt;&lt;option txtShCss&gt;&gt;|e.g.: {{{brush:css; tab-size: 4}}}|sets the option {{{txtShCss}}}|
+|Content between &quot;&quot;&quot;&lt;!--{{{--&gt;&quot;&quot;&quot; and &quot;&quot;&quot;&lt;!--}}}--&gt;&quot;&quot;&quot; will be highlighted using| &lt;&lt;option txtShXml&gt;&gt;|e.g.: {{{brush:xml; tab-size:4}}}|sets the option {{{txtShXml}}}|
+|Content between &quot;&quot;&quot;//{{{&quot;&quot;&quot; and &quot;&quot;&quot;//}}}&quot;&quot;&quot; will be highlighted  using|&lt;&lt;option txtShPlugin&gt;&gt;|e.g.: {{{brush:js; tab-size:4}}}|sets the option {{{txtShPlugin}}}|
 &lt;&lt;&lt;
-!!!!Revision History
+!Revision History
 &lt;&lt;&lt;
+*V 0.2.3 2012-02-26
+**Less documentation in the plugin itself
+**More details about the usage of the {{{&lt;&lt;highlightSyntax&gt;&gt;}}} macro in the plugin documentation
+*V 0.2.2 2012-02-26
+**More detailed documentation
 *V 0.2.0 2010-08-22
 **New formatter for {{{&lt;code class='brush:???'&gt;}}} is available now
 **expert mode uses config options now
 &lt;&lt;&lt;
-!!!!ToDo
-&lt;&lt;&lt;
-*
-&lt;&lt;&lt;
-!!!Code
+/***
+!Code
 ***/
-
 //{{{
-version.extensions.SyntaxHighlighterPlugin3 = {major: 0, minor: 2, revision: 0, date: new Date(2010,8,22)};
+version.extensions.SyntaxHighlighterPlugin3 = {major: 0, minor: 2, revision: 3, date: new Date(2012,02,26)};
 
 (function($) {
 
@@ -1401,11 +1379,11 @@ config.formatters.push({
 })(config.formatters); //# end of alias
 //}}}</pre>
 </div>
-<div title="SyntaxHighlighterPlugin3Info" modifier="GBognar" created="201008171251" modified="201202261625" tags="syntax" changecount="91">
+<div title="SyntaxHighlighterPlugin3Info" modifier="GBognar" created="201008171251" modified="201202261725" tags="syntax" changecount="102">
 <pre>|''Name''|SyntaxHighlighterPlugin3Info|
 |''Description''|Documentation for [[SyntaxHighlighterPlugin3]]|
 |''Author''|PMario|
-|''Version''|0.2.0|
+|''Version''|0.2.3|
 |''Source''|http://syntaxhighlighter.tiddlyspace.com/#SyntaxHighlighterPlugin3|
 |''Documentation''|http://syntaxhighlighter.tiddlyspace.com/#SyntaxHighlighterPlugin3Info|
 |''License''|[[BSD|http://www.opensource.org/licenses/bsd-license.php]], libraries used: see  [[ShCore.js]] |
@@ -1661,6 +1639,31 @@ where
 //}}}
 }}}
 *{{{&lt;additionalOption: additionalParameter&gt;}}}:  is zero or more pairs of [[option and its required parameter as supported by SyntaxHighligher|http://alexgorbatchev.com/SyntaxHighlighter/manual/configuration#syntaxhighlighterdefaults]].
+''Note'':
+You can pass a name of a tag as a parameter to the {{{&lt;&lt;highlightSyntax&gt;&gt;}}} macro. The default value of the parameter is 'pre'. So using {{{&lt;&lt;highlightSyntax tagName&gt;&gt;}}} will syntax highlight all blocks within tags 
+&lt;tagName&gt; and &lt;/tagName&gt;.
+Example:
+{{{
+	&lt;html&gt;
+		&lt;tagName class=&quot;brush: css&quot;&gt;
+		body {
+			/* Move the body to the background */
+			z-index: -1 !important
+		}
+		&lt;/tagName&gt;
+	&lt;/html&gt;
+	&lt;&lt;highlightSyntax tagName&gt;&gt;
+}}}
+will be rendered as
+&lt;html&gt;
+	&lt;tagName class=&quot;brush: css&quot;&gt;
+	body {
+		/* Move the body to the background */
+		z-index: -1 !important
+	}
+	&lt;/tagName&gt;
+&lt;/html&gt;
+&lt;&lt;highlightSyntax tagName&gt;&gt;
 !!!General example
 {{{
  	&lt;html&gt;
@@ -1858,8 +1861,12 @@ __''Notes''__:
 *The {{{txtShText}}}, {{{txtShCss}}}, {{{txtShXml}}} and {{{txtShPlugin}}} options set this way will have effects only if {{{Expert mode}}} is activated.
 *The {{{txtShText}}}, {{{txtShCss}}}, {{{txtShXml}}} and {{{txtShPlugin}}} options will effect only contents between //block braces//.
 &lt;&lt;&lt;
+
 !Revision History
 &lt;&lt;&lt;
+*V 0.2.3 2012-02-26
+**Less documentation in the plugin itself
+**More details about the usage of the {{{&lt;&lt;highlightSyntax&gt;&gt;}}} macro in the plugin documentation
 *V 0.2.2 2012-02-26
 **More detailed documentation
 *V 0.2.0 2010-08-22
@@ -1868,6 +1875,7 @@ __''Notes''__:
 *V 0.1.0 2010-08-17
 **initial release
 &lt;&lt;&lt;
+
 !Requirements
 &lt;&lt;&lt;
 *[[ShCore.js]]
@@ -1879,11 +1887,13 @@ __''Notes''__:
 *[[ShBrushXml.js]]
 *[[SyntaxHighlighterPlugin3]]
 &lt;&lt;&lt;
+
 !!Optional requirements
 &lt;&lt;&lt;
 *[[SyntaxHighlighterPlugin3Info]] for documentation
 *[[ShBrushPython.js]] for the 'General Example' for {{{&lt;code&gt;}}} and {{{&lt;pre&gt;}}} usage to work in the [[SyntaxHighlighterPlugin3Info]] documentation
-&lt;&lt;&lt;</pre>
+&lt;&lt;&lt;
+</pre>
 </div>
 </div>
 <!--POST-STOREAREA-->
