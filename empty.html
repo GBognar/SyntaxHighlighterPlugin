@@ -1401,7 +1401,7 @@ config.formatters.push({
 })(config.formatters); //# end of alias
 //}}}</pre>
 </div>
-<div title="SyntaxHighlighterPlugin3Info" modifier="GBognar" created="201008171251" modified="201202261542" tags="syntax" changecount="79">
+<div title="SyntaxHighlighterPlugin3Info" modifier="GBognar" created="201008171251" modified="201202261610" tags="syntax" changecount="89">
 <pre>|''Name''|SyntaxHighlighterPlugin3Info|
 |''Description''|Documentation for [[SyntaxHighlighterPlugin3]]|
 |''Author''|PMario|
@@ -1514,21 +1514,138 @@ function red_border() {
 }
 //}}}
 &lt;&lt;&lt;
+!!Syntax Highlighting via Using the {{{&lt;code&gt;}}} Markup
+&lt;&lt;&lt;
+Syntax highlighting can also be used by enclosing the content to be highlighted between {{{&lt;code class=&quot;...&quot;&gt;}}} and {{{&lt;/code&gt;}}} markup. In this usage scenario, the additional parameters provided by [[Alexander Gorbachev's SyntaxHighlighter|http://alexgorbatchev.com/SyntaxHighlighter]] can be utilized as well.
+The general usage is as follows:
+{{{
+  &lt;code class=&quot;brush: &lt;brushToBeUsed&gt;[; &lt;additionalOption: additionalParameter&gt;]*&gt;&quot;&gt;
+  Stuff to be highlighted goes here
+ &lt;/code&gt;
+}}}
+where
+*{{{brushToBeUsed}}} is the name of the '//brush//' (i.e. the syntax highlighter) to be used for the contents between the {{{&lt;code&gt;}}} and {{{&lt;/code&gt;}}} markups
+** the '//brush//' should be present in your ~TiddlyWiki as a tiddler named as it appers on on the [[Bundled Brushes page of SyntaxHighlighter|http://alexgorbatchev.com/SyntaxHighlighter/manual/brushes/]]
+**if you do not have a brush, you can create on by
+***getting the needed brush from [[Bundled Brushes page of SyntaxHighlighter|http://alexgorbatchev.com/SyntaxHighlighter/manual/brushes/]] or from other sources, such as from the page [[All Syntax Highlighter 2.0 brushes collected, described and downloadable|http://www.undermyhat.org/blog/2009/09/list-of-brushes-syntaxhighligher/]] 
+***creating a tiddler named according to the brush file (e.g. {{{shBrushPyton.js}}}) and
+***tagging it with the {{{configOption}}} and {{{syntax}}} tags.
+***Optionally, you can make the new brush nicer by prepending and appending the following lines before and after the original script:
+{{{
+/***
+|''Requires''|ShCore.js|
+***/
+//{{{
+}}}
+{{{
+//}}}
+}}}
+*{{{&lt;additionalOption: additionalParameter&gt;}}}:  is zero or more pairs of [[option and its required parameter as supported by SyntaxHighligher|http://alexgorbatchev.com/SyntaxHighlighter/manual/configuration#syntaxhighlighterdefaults]].
+!!!General example
+{{{
+ 	&lt;code class=&quot;brush: python; tab-size:4; first-line: 2; highlight:[3,5]&quot;&gt;
+		# -*- encoding: utf-8 -*-
+		if __name__ == '__main__'
+			import os
+			# Print OS information
+			print (os.uname())
+	&lt;/code&gt;
+}}}
+will render the content between the {{{&lt;code ...&gt;}}} and {{{&lt;/code&gt;}}} markups
+*highlighted according to the syntax of //''Python''// (if you do have the {{{shBrushPython.js}}} tiddler available tagged with {{{configOption}}} and {{{syntax}}})
+*with a tab-size of //''4''// spaces (__if__ the content __does__ contain tabs)
+*with a starting line number of //''2''// and
+*with the //''3^^rd^^''// and //''5^^th^^''// lines highlighted
+&lt;code class=&quot;brush: python; tab-size:4; first-line: 2; highlight:[3,5]&quot;&gt;
+# -*- encoding: utf-8 -*-
+if __name__ == '__main__'
+	import os
+	# Print OS information
+	print (os.uname())
+&lt;/code&gt;
+!!!Plain Text Example
+{{{
+  &lt;code class=&quot;brush: text&quot;&gt;
+  Plain text goes here
+  &lt;/code&gt;
+}}}
+will be rendered as
+&lt;code class=&quot;brush: text&quot;&gt;
+Plain text goes here
+&lt;/code&gt;
+!!!CSS Example
+{{{
+  &lt;code class=&quot;brush:css&quot;&gt;
+  .syntaxhighlighter {
+      /* Ensure the code is behind the tagging */
+      z-index: -3 !important;
+      /* Avoid down-cut code borders */
+      padding: 5px 0px 5px 0px;
+  } 
+  &lt;/code&gt;
+}}}
+will be rendered as
+&lt;code class=&quot;brush:css&quot;&gt;
+  .syntaxhighlighter {
+      /* Ensure the code is behind the tagging */
+      z-index: -3 !important;
+      /* Avoid down-cut code borders */
+      padding: 5px 0px 5px 0px;
+  } 
+&lt;/code&gt;
+!!!XML Example
+{{{
+  &lt;code class=&quot;brush:xml&quot;&gt;
+  &lt;!-- The code will manipulate this element --&gt;
+  &lt;div id=&quot;target&quot;&gt;
+      &lt;p class=&quot;something&quot;&gt;
+          Content
+      &lt;/p&gt;
+  &lt;/div&gt;
+  &lt;/code&gt;
+}}}
+will be rendered as
+&lt;code class=&quot;brush:xml&quot;&gt;
+&lt;!-- The code will manipulate this element --&gt;
+&lt;div id=&quot;target&quot;&gt;
+    &lt;p class=&quot;something&quot;&gt;
+        Content
+    &lt;/p&gt;
+&lt;/div&gt;
+&lt;/code&gt;
+!!!~JavaScript Example
+{{{
+  &lt;code class=&quot;brush:js&quot;&gt;
+  /* Add red border to &lt;div id=&quot;target&quot;&gt; element */
+  function red_border() {
+    $(&quot;div#id&quot;).css('border','thin solid red')
+  }
+  &lt;/code&gt;
+}}}
+will be rendered as
+&lt;code class=&quot;brush:js&quot;&gt;
+/* Add red border to &lt;div id=&quot;target&quot;&gt; element */
+function red_border() {
+    $(&quot;div#id&quot;).css('border','thin solid red')
+}
+&lt;/code&gt;
+&lt;&lt;&lt;
 !!Syntax Highlighting via Using the {{{&lt;&lt;highlightSyntax&gt;&gt;}}} Macro
 &lt;&lt;&lt;
-When dropping down to HTML embedded directly into a tiddler, the {{{&lt;&lt;highlightSyntax&gt;&gt;}}} macro can be used. In this usage scenario, the additional parameters provided by [[Alexander Gorbachev's SyntaxHighlighter|http://alexgorbatchev.com/SyntaxHighlighter]] can be utilized as well.
+When dropping down to HTML embedded directly into a tiddler, the {{{&lt;&lt;highlightSyntax&gt;&gt;}}} macro can be used. This usage is very similar to the one described in the previous section.
+The additional parameters provided by [[Alexander Gorbachev's SyntaxHighlighter|http://alexgorbatchev.com/SyntaxHighlighter]] can be utilized in this scenario as well.
 The general usage is as follows:
 {{{
   &lt;html&gt;
-  &lt;pre class=&quot;brush: &lt;brushToBeUsed&gt;[; &lt;additionalOption: additionalParameter1&gt;]*&gt;&quot;&gt;
+  &lt;pre class=&quot;brush: &lt;brushToBeUsed&gt;[; &lt;additionalOption: additionalParameter&gt;]*&gt;&quot;&gt;
   Stuff to be highlighted goes here
   &lt;/pre&gt;
   &lt;/html&gt;
   &lt;&lt;highlightSyntax&gt;&gt;
 }}}
 where
-*{{{brushToBeUsed}}} is the name of the 'brush' (i.e. the syntax highlighter) to be used for the contents between the {{{&lt;pre&gt;}}} and {{{&lt;/pre&gt;}}} blocks
-** the 'brush' should be present in your ~TiddlyWiki as a tiddler named as it appers on on the [[Bundled Brushes page of SyntaxHighlighter|http://alexgorbatchev.com/SyntaxHighlighter/manual/brushes/]]
+*{{{brushToBeUsed}}} is the name of the '//brush//' (i.e. the syntax highlighter) to be used for the contents between the {{{&lt;pre&gt;}}} and {{{&lt;/pre&gt;}}} markups
+** the '//brush//' should be present in your ~TiddlyWiki as a tiddler named as it appers on on the [[Bundled Brushes page of SyntaxHighlighter|http://alexgorbatchev.com/SyntaxHighlighter/manual/brushes/]]
 **if you do not have a brush, you can create on by
 ***getting the needed brush from [[Bundled Brushes page of SyntaxHighlighter|http://alexgorbatchev.com/SyntaxHighlighter/manual/brushes/]] or from other sources, such as from the page [[All Syntax Highlighter 2.0 brushes collected, described and downloadable|http://www.undermyhat.org/blog/2009/09/list-of-brushes-syntaxhighligher/]] 
 ***creating a tiddler named according to the brush file (e.g. {{{shBrushPyton.js}}}) and
@@ -1768,21 +1885,21 @@ __''Notes''__:
 *[[ShBrushPython.js]] for a working 'General Example' in the [[SyntaxHighlighterPlugin3Info]] documentation
 &lt;&lt;&lt;</pre>
 </div>
-<div title="Test SyntaxHighlighter3Plugin via &lt;code&gt;" creator="GBognar" modifier="GBognar" created="201202261546" modified="201202261550" changecount="8">
-<pre>&lt;code class=&quot;brush: text&quot;&gt;
+<div title="Test SyntaxHighlighter3Plugin via &lt;code&gt;" creator="GBognar" modifier="GBognar" created="201202261546" modified="201202261612" changecount="12">
+<pre>&lt;code class=&quot;brush: text; gutter:false&quot;&gt;
 Plain text
 and again
 plain text
 &lt;/code&gt;
 -------------
-&lt;code class=&quot;brush:css&quot;&gt;
+&lt;code class=&quot;brush:css; highlight:[1,3]&quot;&gt;
 /* CSS */
 body {
 	z-index: -3 !important;
 }
 &lt;/code&gt;
 -------------
-&lt;code class=&quot;brush: xml&quot;&gt;
+&lt;code class=&quot;brush: xml; first-line:2&quot;&gt;
 &lt;!-- XML --&gt;
 &lt;div id=&quot;target&quot;&gt;
 	&lt;span id=&quot;subtarget&quot;&gt;Content&lt;/span&gt;
