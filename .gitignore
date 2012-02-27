@@ -1,1 +1,5 @@
-backups
+# Do not track tmp files
+**~
+**.un~
+# Do not track .backups directory
+.backups
