@@ -1,0 +1,5 @@
+The [[https://github.com/GBognar/SyntaxHighlighterPlugin/tree/SyntaxHighlighterPluginFacelift|SyntaxHighlighterPluginFacelift branch]] (i.e. this branch) contains a version of
+PMario's original [[https://github.com/pmario/SyntaxHighlighterPlugin|SyntaxHighlighterPlugin]] with minor modifications, namely:
+* more verbose description in the documentation of the plugin,
+* less verbose description in the plugin itself and
+* some minor changes to the styles governing the appearance of highlighted content.
