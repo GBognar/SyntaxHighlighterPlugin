@@ -1289,7 +1289,7 @@ eval(function(p,a,c,k,e,d){e=function(c){return(c&lt;a?'':e(parseInt(c/a)))+((c=
 <pre>[[ShCore.css]]
 [[ShThemeDefault.css]]</pre>
 </div>
-<div title="SyntaxHighlighterRubyPlugin" creator="GBognar" modifier="GBognar" created="201202271758" tags="systemConfig syntax" changecount="1">
+<div title="SyntaxHighlighterRubyPlugin" creator="GBognar" modifier="GBognar" created="201202271758" modified="201202271815" tags="systemConfig syntax" changecount="2">
 <pre>/***
 |''Name''|SyntaxHighlighterRubyPlugin|
 |''Description''|Enables syntax highlighting|
@@ -1489,7 +1489,7 @@ if (!version.extensions.SyntaxHighlighterRubyPlugin) {
 } //# end of install only once
 //}}}</pre>
 </div>
-<div title="SyntaxHighlighterRubyPluginInfo" modifier="GBognar" created="201008171251" modified="201202271641" tags="syntax" changecount="107">
+<div title="SyntaxHighlighterRubyPluginInfo" modifier="GBognar" created="201008171251" modified="201202271817" tags="syntax" changecount="110">
 <pre>|''Name''|SyntaxHighlighterRubyPluginInfo|
 |''Description''|Documentation for [[SyntaxHighlighterRubyPlugin]]|
 |''Author''|GBognar|
@@ -1535,6 +1535,7 @@ To make use of other available themes:
 * Content between &quot;&quot;&quot;/*{{{*/&quot;&quot;&quot; and &quot;&quot;&quot;/*}}}*/&quot;&quot;&quot; will be highlighted as CSS.
 * Content between &quot;&quot;&quot;&lt;!--{{{--&gt;&quot;&quot;&quot; and &quot;&quot;&quot;&lt;!--}}}--&gt;&quot;&quot;&quot; will be highlighted as XML.
 * Content between &quot;&quot;&quot;//{{{&quot;&quot;&quot; and &quot;&quot;&quot;//}}}&quot;&quot;&quot; will be highlighted as ~JavaScript.
+* Content between &quot;&quot;&quot;={{{&quot;&quot;&quot; and &quot;&quot;&quot;=}}}&quot;&quot;&quot; will be highlighted as Ruby.
 !!!Plain Text
 {{{
   {{{
@@ -1942,6 +1943,7 @@ If the {{{Expert mode}}} option __is activated__, the syntax highlighting for co
 |Content between &quot;&quot;&quot;/*{{{*/&quot;&quot;&quot; and &quot;&quot;&quot;/*}}}*/&quot;&quot;&quot; will be highlighted using| &lt;&lt;option txtShCss&gt;&gt;|e.g.: {{{brush:css; tab-size: 4}}}|sets the option {{{txtShCss}}}|
 |Content between &quot;&quot;&quot;&lt;!--{{{--&gt;&quot;&quot;&quot; and &quot;&quot;&quot;&lt;!--}}}--&gt;&quot;&quot;&quot; will be highlighted using| &lt;&lt;option txtShXml&gt;&gt;|e.g.: {{{brush:xml; tab-size:4}}}|sets the option {{{txtShXml}}}|
 |Content between &quot;&quot;&quot;//{{{&quot;&quot;&quot; and &quot;&quot;&quot;//}}}&quot;&quot;&quot; will be highlighted  using|&lt;&lt;option txtShPlugin&gt;&gt;|e.g.: {{{brush:js; tab-size:4}}}|sets the option {{{txtShPlugin}}}|
+|Content between &quot;&quot;&quot;={{{&quot;&quot;&quot; and &quot;&quot;&quot;=}}}&quot;&quot;&quot; will be highlighted  using|&lt;&lt;option txtShRuby&gt;&gt;|e.g.: {{{brush:ruby; tab-size:2}}}|sets the option {{{txtShRuby}}}|
 &lt;&lt;&lt;
 !!!Configuring Default Values for Options
 &lt;&lt;&lt;
@@ -2018,7 +2020,7 @@ Ruby multi-line comment
 end
 &lt;/code&gt;</pre>
 </div>
-<div title="Test ={{{ markup" creator="GBognar" modifier="GBognar" created="201202271652" modified="201202271758" changecount="11">
+<div title="Test ={{{ markup" creator="GBognar" modifier="GBognar" created="201202271652" modified="201202271810" changecount="12">
 <pre>={{{
 #This is for testing Ruby
 class TestClass  &lt; BasicObject
