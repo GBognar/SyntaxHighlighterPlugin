@@ -1,16 +1,16 @@
 |**Note:** This is a work in progress.|
 
 =Description
-The [[SyntaxHighlighterRubyPlugin|https://github.com/GBognar/SyntaxHighlighterPlugin]]  is a [[TiddlyWiki|http://www.tiddlywiki.com]] plugin which enables you to syntax highlight Ruby, CSS, XML/HTML and JavaScript content in your ~TiddlyWiki.
+The [[https://github.com/GBognar/SyntaxHighlighterPlugin|SyntaxHighlighterRubyPlugin]] is a [[http://www.tiddlywiki.com|TiddlyWiki]] plugin which enables you to syntax highlight Ruby, CSS, XML/HTML and JavaScript content in your ~TiddlyWiki.
 
-It is built on PMario's [[SyntaxHighlighterPlugin|https://github.com/pmario/SyntaxHighlighterPlugin]], which uses Alex Gorbatchev 's [[SyntaxHighlighter|http://alexgorbatchev.com/SyntaxHighlighter/]].
+It is built on PMario's [[https://github.com/pmario/SyntaxHighlighterPlugin|SyntaxHighlighterPlugin]], which uses Alex Gorbatchev 's [[http://alexgorbatchev.com/SyntaxHighlighter/|SyntaxHighlighter]].
 
 =Current Development
 The current development focuses on providing a //really **fast** and **comfortable**// solution to syntax highlight Ruby code in TiddlyWiki.
 
 =The 'SyntaxHighlighterPluginFacelift' branch
-The [[SyntaxHighlighterPluginFacelift branch|https://github.com/GBognar/SyntaxHighlighterPlugin/tree/SyntaxHighlighterPluginFacelift]] contains a version of
-PMario's original [[SyntaxHighlighterPlugin|https://github.com/pmario/SyntaxHighlighterPlugin]] with minor modifications, namely:
+The [[https://github.com/GBognar/SyntaxHighlighterPlugin/tree/SyntaxHighlighterPluginFacelift|SyntaxHighlighterPluginFacelift branch]] contains a version of
+PMario's original [[https://github.com/pmario/SyntaxHighlighterPlugin|SyntaxHighlighterPlugin]] with minor modifications, namely:
 * more verbose description in the documentation of the plugin,
 * less verbose description in the plugin itself and
 * some minor changes to the styles governing the appearance of highlighted content.
