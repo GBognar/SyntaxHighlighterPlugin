@@ -507,13 +507,6 @@ Also see [[AdvancedOptions]]</pre>
 </div>
 <!--POST-SHADOWAREA-->
 <div id="storeArea">
-<div title="ExternalScripts" creator="GBognar" modifier="GBognar" created="201202271710" modified="201202271718" changecount="3">
-<pre>SyntaxHighlighterRubyPlugin.js</pre>
-</div>
-<div title="MarkupPostBody" creator="GBognar" modifier="GBognar" created="201202271709" changecount="1">
-<pre>&lt;script type=&quot;text/javascript&quot; src=&quot;loadExternal.js&quot;&gt;
-&lt;/script&gt;</pre>
-</div>
 <div title="ShBrushCSS.js" modifier="pmario" created="201008171249" modified="201008171249" tags="systemConfig syntax">
 <pre>/***
 |Requires|ShCore.js|
@@ -1296,6 +1289,206 @@ eval(function(p,a,c,k,e,d){e=function(c){return(c&lt;a?'':e(parseInt(c/a)))+((c=
 <pre>[[ShCore.css]]
 [[ShThemeDefault.css]]</pre>
 </div>
+<div title="SyntaxHighlighterRubyPlugin" creator="GBognar" modifier="GBognar" created="201202271758" tags="systemConfig syntax" changecount="1">
+<pre>/***
+|''Name''|SyntaxHighlighterRubyPlugin|
+|''Description''|Enables syntax highlighting|
+|''Author''|GBognar|
+|''Version''|0.1.0|
+|''Status''|@@experimental@@|
+|''Source''||
+|''License''|[[BSD|http://www.opensource.org/licenses/bsd-license.php]]|
+|''CoreVersion''|2.6.5|
+|''Requires''|ShCore.js|
+|''Keywords''|syntax highlighting color code Ruby|
+!Description
+Enables syntax highlighting for &lt;pre&gt; and &lt;code&gt; blocks. Adds a new formatter for {{{&lt;code class='brush:???'&gt;}}}. 
+!Documentation
+See: [[SyntaxHighlighterRubyPluginInfo]]
+!Configuration options
+&lt;&lt;&lt;
+|''Guess syntax:''| &lt;&lt;option chkGuessSyntax&gt;&gt;|
+
+|''Expert mode:''| &lt;&lt;option chkExpertSyntax&gt;&gt;|
+ 
+If the {{{Expert mode}}} option __is activated__, the syntax highlighting for contents between //block braces// will be according to the parameters set below
+|Content between &quot;&quot;&quot;{{{&quot;&quot;&quot; and &quot;&quot;&quot;}}}&quot;&quot;&quot; will be highlighted using| &lt;&lt;option txtShText&gt;&gt;|e.g.: {{{brush:text; gutter: false}}}|sets the option {{{txtShText}}}|
+|Content between &quot;&quot;&quot;/&quot;&quot;&quot;&quot;&quot;&quot;*{{{*&quot;&quot;&quot;&quot;&quot;&quot;/&quot;&quot;&quot; and &quot;&quot;&quot;/&quot;&quot;&quot;&quot;&quot;&quot;*}}}*&quot;&quot;&quot;&quot;&quot;&quot;/&quot;&quot;&quot; will be highlighted using| &lt;&lt;option txtShCss&gt;&gt;|e.g.: {{{brush:css; tab-size: 4}}}|sets the option {{{txtShCss}}}|
+|Content between &quot;&quot;&quot;&lt;!--{{{--&gt;&quot;&quot;&quot; and &quot;&quot;&quot;&lt;!--}}}--&gt;&quot;&quot;&quot; will be highlighted using| &lt;&lt;option txtShXml&gt;&gt;|e.g.: {{{brush:xml; tab-size:4}}}|sets the option {{{txtShXml}}}|
+|Content between &quot;&quot;&quot;//{{{&quot;&quot;&quot; and &quot;&quot;&quot;//}}}&quot;&quot;&quot; will be highlighted  using|&lt;&lt;option txtShPlugin&gt;&gt;|e.g.: {{{brush:js; tab-size:4}}}|sets the option {{{txtShPlugin}}}|
+|Content between &quot;&quot;&quot;={{{&quot;&quot;&quot; and &quot;&quot;&quot;=}}}&quot;&quot;&quot; will be highlighted  using|&lt;&lt;option txtShRuby&gt;&gt;|e.g.: {{{brush:ruby; tab-size:2}}}|sets the option {{{txtShRuby}}}|
+&lt;&lt;&lt;
+!Revision History
+&lt;&lt;&lt;
+*V 0.1.0 2012-02-27
+**Initial release
+&lt;&lt;&lt;
+/***
+!Code
+***/
+//{{{
+/* For jslint
+jslint --predef=SyntaxHighlighter \
+--predef=version --predef=config --predef=story --predef=createTiddlyElement --predef=merge \
+--predef=$ --predef=jQuery \
+--predef=alert --predef=window --predef=document \
+--plusplus --regexp --sloppy --vars &lt;nameOfPluginAsScript&gt;
+*/
+if (!version.extensions.SyntaxHighlighterRubyPlugin) {
+    // ensure the plugin is only installed once
+    version.extensions.SyntaxHighlighterRubyPlugin = {
+        major: 0,
+        minor: 1,
+        revision: 0,
+        date: new Date(2012, 2, 27)
+    };
+    // Patching default monospacedByLine formatter
+    (function (nameOfFormatterToBePatched) {
+        var formatter, index;
+        for (index = 1; index &lt; config.formatters.length; index++) {
+            if (config.formatters[index].name === nameOfFormatterToBePatched) {
+                formatter = config.formatters[index];
+                break;
+            }
+        }
+        if (formatter !== undefined) {
+            formatter.match = &quot;^(?:/\\*\\{\\{\\{\\*/&quot; +
+                &quot;|\\{\\{\\{|//\\{\\{\\{&quot; +
+                &quot;|&lt;!--\\{\\{\\{--&gt;&quot; +
+                &quot;|=\\{\\{\\{)\\n&quot;;
+            formatter.handler = function (w) {
+                switch (w.matchText) {
+                case &quot;/*{{{*/\n&quot;: // CSS
+                    this.lookaheadRegExp = /\/\*\{\{\{\*\/\n*((?:^[^\n]*\n)+?)(\n*^\f*\/\*\}\}\}\*\/$\n?)/mg;
+                    break;
+                case &quot;{{{\n&quot;: // monospaced block
+                    this.lookaheadRegExp = /^\{\{\{\n((?:^[^\n]*\n)+?)(^\f*\}\}\}$\n?)/mg;
+                    break;
+                case &quot;//{{{\n&quot;: // plugin
+                    this.lookaheadRegExp = /^\/\/\{\{\{\n\n*((?:^[^\n]*\n)+?)(\n*^\f*\/\/\}\}\}$\n?)/mg;
+                    break;
+                case &quot;&lt;!--{{{--&gt;\n&quot;: //template
+                    this.lookaheadRegExp = /&lt;!--\{\{\{--&gt;\n*((?:^[^\n]*\n)+?)(\n*^\f*&lt;!--\}\}\}--&gt;$\n?)/mg;
+                    break;
+                case &quot;={{{\n&quot;: //ruby
+                    this.lookaheadRegExp = /=\{\{\{\n*((?:^[^\n]*\n)+?)(\n*^\f*=\}\}\}$\n?)/mg;
+                    break;
+                default:
+                    break;
+                }
+                config.formatterHelpers.enclosedTextHelper.call(this, w);
+            };//end of formatter.handler
+        } else {
+            alert(&quot;SyntaxHighlight was NOT enabled, as no formatter was found named '&quot;
+                + nameOfFormatterToBePatched + &quot;'.&quot;);
+        }
+    }('monospacedByLine'));
+
+    (function ($) {
+        if (!window.SyntaxHighlighter) {
+            throw &quot;Missing dependency: SyntaxHighlighter&quot;;
+        }
+
+        config.macros.highlightSyntax = {
+            getElementsByClass: function (searchClass, node, tag) {
+                var classElements = [];
+                if (node === null) {
+                    node = document;
+                }
+                if (tag === null) {
+                    tag = '*';
+                }
+
+                var els = node.getElementsByTagName(tag);
+                var elsLen = els.length;
+                var pattern = new RegExp(&quot;(^|\\s)&quot; + searchClass + &quot;(:|\\s|$)&quot;);
+                var i, j;
+                for (i = 0, j = 0; i &lt; elsLen; i++) {
+                    if (pattern.test(els[i].className)) {
+                        classElements[j] = els[i];
+                        j++;
+                    }
+                }
+                return classElements;
+            }, //end of getElementsByClass
+            handler: function (place, macroName, params, wikifier, paramString, tiddler) {
+                // the configured tagName can be temporarily overwritten by the macro.
+                var tagName = params[0] || SyntaxHighlighter.config.tagName;
+                var arr = this.getElementsByClass('brush', story.findContainingTiddler(place), tagName);
+                var i;
+                for (i = 0; i &lt; arr.length; i++) {
+                    SyntaxHighlighter.highlight(null, arr[i]);
+                }
+            } //end of handler
+        };
+    }(jQuery));
+    config.formatters.push({
+        name: &quot;highlightSyntax&quot;,
+        match: &quot;^&lt;code[\\s]+[^&gt;]+&gt;\\n&quot;,
+        element: &quot;pre&quot;,
+        handler: function (w) {
+            this.lookaheadRegExp = /&lt;code[\s]+class.*=.*[&quot;'](.*)[&quot;'].*&gt;\n((?:^[^\n]*\n)+?)(^&lt;\/code&gt;$\n?)/img;
+            this.lookaheadRegExp.lastIndex = w.matchStart;
+            var lookaheadMatch = this.lookaheadRegExp.exec(w.source);
+            if (lookaheadMatch &amp;&amp; lookaheadMatch.index === w.matchStart) {
+                var options = lookaheadMatch[1];
+                var text = lookaheadMatch[2];
+                if (config.browser.isIE) {
+                    text = text.replace(/\n/g, &quot;\r&quot;);
+                }
+                var element = createTiddlyElement(w.output, this.element, null, options, text);
+                SyntaxHighlighter.highlight(null, element);
+                w.nextMatch = lookaheadMatch.index + lookaheadMatch[0].length;
+            }
+        }
+    });
+    (function (formatters) { // set up alias
+        var helper = {};
+        helper.enclosedTextHelper = function (w) {
+            var attr;
+            var co = config.options;
+            var expert = (co.chkExpertSyntax !== undefined) ? co.chkExpertSyntax : false;
+            var guess = (co.chkGuessSyntax !== undefined) ? co.chkGuessSyntax : true;
+
+            this.lookaheadRegExp.lastIndex = w.matchStart;
+            var lookaheadMatch = this.lookaheadRegExp.exec(w.source);
+            if (lookaheadMatch &amp;&amp; lookaheadMatch.index === w.matchStart) {
+                var text = lookaheadMatch[1];
+                if (config.browser.isIE) {
+                    text = text.replace(/\n/g, &quot;\r&quot;);
+                }
+                switch (w.matchText) {
+                case &quot;{{{\n&quot;: // text
+                    attr = (expert) ? (co.txtShText) ? (co.txtShText) : 'brush:text' : 'brush:text';
+                    break;
+                case &quot;/*{{{*/\n&quot;: // CSS
+                    attr = (expert) ? (co.txtShCss) ? (co.txtShCss) : 'brush:css' : 'brush:css';
+                    break;
+                case &quot;//{{{\n&quot;: // plugin
+                    attr = (expert) ? (co.txtShPlugin) ? (co.txtShPlugin) : 'brush:js' : 'brush:js';
+                    break;
+                case &quot;&lt;!--{{{--&gt;\n&quot;: //template
+                    attr =  (expert) ? (co.txtShXml) ? (co.txtShXml) : 'brush:xml' : 'brush:xml';
+                    break;
+                case &quot;={{{\n&quot;: // Ruby
+                    attr = (expert) ? (co.txtShRuby) ? (co.txtShRuby) : 'brush:ruby' : 'brush:ruby';
+                    break;
+                }
+                var element = createTiddlyElement(w.output, this.element, null, attr, text);
+                if (guess || expert) {
+                    SyntaxHighlighter.highlight(null, element);
+                }
+
+                w.nextMatch = lookaheadMatch.index + lookaheadMatch[0].length;
+            }
+        };
+        // merge the new helper function into formatterHelpers.
+        merge(config.formatterHelpers, helper);
+
+    }(config.formatters)); //# end of alias
+} //# end of install only once
+//}}}</pre>
+</div>
 <div title="SyntaxHighlighterRubyPluginInfo" modifier="GBognar" created="201008171251" modified="201202271641" tags="syntax" changecount="107">
 <pre>|''Name''|SyntaxHighlighterRubyPluginInfo|
 |''Description''|Documentation for [[SyntaxHighlighterRubyPlugin]]|
@@ -1825,7 +2018,7 @@ Ruby multi-line comment
 end
 &lt;/code&gt;</pre>
 </div>
-<div title="Test ={{{ markup" creator="GBognar" modifier="GBognar" created="201202271652" modified="201202271744" changecount="10">
+<div title="Test ={{{ markup" creator="GBognar" modifier="GBognar" created="201202271652" modified="201202271758" changecount="11">
 <pre>={{{
 #This is for testing Ruby
 class TestClass  &lt; BasicObject
@@ -11510,8 +11703,7 @@ if(useJavaSaver)
 //]]>
 </script>
 <!--POST-SCRIPT-START-->
-<script type="text/javascript" src="loadExternal.js">
-</script>
+
 <!--POST-SCRIPT-END-->
 </body>
 </html>
