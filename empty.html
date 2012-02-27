@@ -507,6 +507,13 @@ Also see [[AdvancedOptions]]</pre>
 </div>
 <!--POST-SHADOWAREA-->
 <div id="storeArea">
+<div title="ExternalScripts" creator="GBognar" modifier="GBognar" created="201202271710" modified="201202271718" changecount="3">
+<pre>SyntaxHighlighterRubyPlugin.js</pre>
+</div>
+<div title="MarkupPostBody" creator="GBognar" modifier="GBognar" created="201202271709" changecount="1">
+<pre>&lt;script type=&quot;text/javascript&quot; src=&quot;loadExternal.js&quot;&gt;
+&lt;/script&gt;</pre>
+</div>
 <div title="ShBrushCSS.js" modifier="pmario" created="201008171249" modified="201008171249" tags="systemConfig syntax">
 <pre>/***
 |Requires|ShCore.js|
@@ -701,7 +708,7 @@ Also see [[AdvancedOptions]]</pre>
 })();
 //}}}</pre>
 </div>
-<div title="ShBrushPython.js" modifier="Seisachtheia" created="201202201825" modified="201202201852" tags="systemConfig syntax">
+<div title="ShBrushPython.js" modifier="GBognar" created="201202201825" modified="201202201852" tags="systemConfig syntax">
 <pre>/***
 |Requires|ShCore.js|
 ***/
@@ -766,6 +773,65 @@ Also see [[AdvancedOptions]]</pre>
 	Brush.aliases	= ['py', 'python'];
 
 	SyntaxHighlighter.brushes.Python = Brush;
+
+	// CommonJS
+	typeof(exports) != 'undefined' ? exports.Brush = Brush : null;
+})();
+//}}}</pre>
+</div>
+<div title="ShBrushRuby.js" modifier="GBognar" created="201202171829" modified="201202271658" tags="systemConfig syntax" server.type="file" server.host="file:///home/gab/dev/syntaxhighlighterrubyplugin/SyntaxHighlighterPlugin/g_e.html" server.page.revision="201202171901" changecount="1">
+<pre>//{{{
+/**
+ * SyntaxHighlighter
+ * http://alexgorbatchev.com/SyntaxHighlighter
+ *
+ * SyntaxHighlighter is donationware. If you are using it, please donate.
+ * http://alexgorbatchev.com/SyntaxHighlighter/donate.html
+ *
+ * @version
+ * 3.0.83 (July 02 2010)
+ * 
+ * @copyright
+ * Copyright (C) 2004-2010 Alex Gorbatchev.
+ *
+ * @license
+ * Dual licensed under the MIT and GPL licenses.
+ */
+;(function()
+{
+	// CommonJS
+	typeof(require) != 'undefined' ? SyntaxHighlighter = require('shCore').SyntaxHighlighter : null;
+
+	function Brush()
+	{
+		// Contributed by Erik Peterson.
+	
+		var keywords =	'alias and BEGIN begin break case class def define_method defined do each else elsif ' +
+						'END end ensure false for if in module new next nil not or raise redo rescue retry return ' +
+						'self super then throw true undef unless until when while yield';
+
+		var builtins =	'Array Bignum Binding Class Continuation Dir Exception FalseClass File::Stat File Fixnum Fload ' +
+						'Hash Integer IO MatchData Method Module NilClass Numeric Object Proc Range Regexp String Struct::TMS Symbol ' +
+						'ThreadGroup Thread Time TrueClass';
+
+		this.regexList = [
+			{ regex: SyntaxHighlighter.regexLib.singleLinePerlComments,	css: 'comments' },		// one line comments
+			{ regex: SyntaxHighlighter.regexLib.doubleQuotedString,		css: 'string' },		// double quoted strings
+			{ regex: SyntaxHighlighter.regexLib.singleQuotedString,		css: 'string' },		// single quoted strings
+			{ regex: /\b[A-Z0-9_]+\b/g,									css: 'constants' },		// constants
+			{ regex: /:[a-z][A-Za-z0-9_]*/g,							css: 'color2' },		// symbols
+			{ regex: /(\$|@@|@)\w+/g,									css: 'variable bold' },	// $global, @instance, and @@class variables
+			{ regex: new RegExp(this.getKeywords(keywords), 'gm'),		css: 'keyword' },		// keywords
+			{ regex: new RegExp(this.getKeywords(builtins), 'gm'),		css: 'color1' }			// builtins
+			];
+
+		this.forHtmlScript(SyntaxHighlighter.regexLib.aspScriptTags);
+	};
+
+	Brush.prototype	= new SyntaxHighlighter.Highlighter();
+	Brush.aliases	= ['ruby', 'rails', 'ror', 'rb'];
+
+	SyntaxHighlighter.brushes.Ruby = Brush;
 
 	// CommonJS
 	typeof(exports) != 'undefined' ? exports.Brush = Brush : null;
@@ -1230,166 +1296,15 @@ eval(function(p,a,c,k,e,d){e=function(c){return(c&lt;a?'':e(parseInt(c/a)))+((c=
 <pre>[[ShCore.css]]
 [[ShThemeDefault.css]]</pre>
 </div>
-<div title="SyntaxHighlighterPlugin3" creator="pmario" modifier="GBognar" created="201009071234" modified="201202261818" tags="systemConfig syntax" changecount="26">
-<pre>/***
-|''Name''|SyntaxHighlighterPlugin3|
-|''Description''|Enables syntax highlighting|
-|''Author''|PMario|
-|''Version''|0.2.3|
-|''Status''|''beta''|
-|''Source''|http://syntaxhighlighter.tiddlyspace.com/#SyntaxHighlighterPlugin3|
-|''License''|[[BSD|http://www.opensource.org/licenses/bsd-license.php]]|
-|''CoreVersion''|2.5.0|
-|''Requires''|ShCore.js|
-|''Keywords''|syntax highlighting color code|
-!Description
-Enables syntax highlighting for &lt;pre&gt; and &lt;code&gt; blocks. Adds a new formatter for {{{&lt;code class='brush:???'&gt;}}}. 
-!Documentation
-See: [[SyntaxHighlighterPlugin3Info]]
-!Configuration options
-&lt;&lt;&lt;
-|''Guess syntax:''| &lt;&lt;option chkGuessSyntax&gt;&gt;|
-
-|''Expert mode:''| &lt;&lt;option chkExpertSyntax&gt;&gt;|
- 
-If the {{{Expert mode}}} option __is activated__, the syntax highlighting for contents between //block braces// will be according to the parameters set below
-|Content between &quot;&quot;&quot;{{{&quot;&quot;&quot; and &quot;&quot;&quot;}}}&quot;&quot;&quot; will be highlighted using| &lt;&lt;option txtShText&gt;&gt;|e.g.: {{{brush:text; gutter: false}}}|sets the option {{{txtShText}}}|
-|Content between &quot;&quot;&quot;/&quot;&quot;&quot;&quot;&quot;&quot;*{{{*&quot;&quot;&quot;&quot;&quot;&quot;/&quot;&quot;&quot; and &quot;&quot;&quot;/&quot;&quot;&quot;&quot;&quot;&quot;*}}}*&quot;&quot;&quot;&quot;&quot;&quot;/&quot;&quot;&quot; will be highlighted using| &lt;&lt;option txtShCss&gt;&gt;|e.g.: {{{brush:css; tab-size: 4}}}|sets the option {{{txtShCss}}}|
-|Content between &quot;&quot;&quot;&lt;!--{{{--&gt;&quot;&quot;&quot; and &quot;&quot;&quot;&lt;!--}}}--&gt;&quot;&quot;&quot; will be highlighted using| &lt;&lt;option txtShXml&gt;&gt;|e.g.: {{{brush:xml; tab-size:4}}}|sets the option {{{txtShXml}}}|
-|Content between &quot;&quot;&quot;//{{{&quot;&quot;&quot; and &quot;&quot;&quot;//}}}&quot;&quot;&quot; will be highlighted  using|&lt;&lt;option txtShPlugin&gt;&gt;|e.g.: {{{brush:js; tab-size:4}}}|sets the option {{{txtShPlugin}}}|
-&lt;&lt;&lt;
-!Revision History
-&lt;&lt;&lt;
-*V 0.2.3 2012-02-26
-**Less documentation in the plugin itself
-**More details about the usage of the {{{&lt;&lt;highlightSyntax&gt;&gt;}}} macro in the plugin documentation
-*V 0.2.2 2012-02-26
-**More detailed documentation
-*V 0.2.0 2010-08-22
-**New formatter for {{{&lt;code class='brush:???'&gt;}}} is available now
-**expert mode uses config options now
-&lt;&lt;&lt;
-/***
-!Code
-***/
-//{{{
-version.extensions.SyntaxHighlighterPlugin3 = {major: 0, minor: 2, revision: 3, date: new Date(2012,02,26)};
-
-(function($) {
-
-if(!window.SyntaxHighlighter) {
-	throw &quot;Missing dependency: SyntaxHighlighter&quot;;
-}
-
-config.macros.highlightSyntax = {
-	getElementsByClass: function (searchClass,node,tag) {
-		var classElements = [];
-        if ( node == null ) node = document;
-        if ( tag == null )  tag = '*';
-		
-		var els = node.getElementsByTagName(tag);
-		var elsLen = els.length;
-		var pattern = new RegExp(&quot;(^|\\s)&quot;+searchClass+&quot;(:|\\s|$)&quot;);
-		for (i = 0, j = 0; i &lt; elsLen; i++) {
-			if ( pattern.test(els[i].className) ) {
-				classElements[j] = els[i];
-				j++;
-			}
-		}
-		return classElements;
-	},
-	
-	handler: function(place, macroName, params, wikifier, paramString, tiddler) {
-		// the configured tagName can be temporarily overwritten by the macro.
-		var tagName = params[0] || SyntaxHighlighter.config.tagName;
-		var arr = this.getElementsByClass('brush', story.findContainingTiddler(place), tagName);
-		for (i=0; i&lt;arr.length; i++) {
-			SyntaxHighlighter.highlight(null, arr[i]);
-		}			
-	} // handler
-};
-
-})(jQuery);
-//}}}
-/***
-!!!!!New formatter for {{{&lt;code class='brush:??'&gt;}}}
-***/
-//{{{
-config.formatters.push({
-	name: &quot;highlightSyntax&quot;,
-	match: &quot;^&lt;code[\\s]+[^&gt;]+&gt;\\n&quot;,
-	element: &quot;pre&quot;,
-	handler: function(w)
-	{
-        this.lookaheadRegExp = /&lt;code[\s]+class.*=.*[&quot;'](.*)[&quot;'].*&gt;\n((?:^[^\n]*\n)+?)(^&lt;\/code&gt;$\n?)/img;
-		this.lookaheadRegExp.lastIndex = w.matchStart;
-		var lookaheadMatch = this.lookaheadRegExp.exec(w.source);
-		if(lookaheadMatch &amp;&amp; lookaheadMatch.index == w.matchStart) {
-            var options = lookaheadMatch[1];
-			var text = lookaheadMatch[2];
-			if(config.browser.isIE)
-				text = text.replace(/\n/g,&quot;\r&quot;);
-			var element = createTiddlyElement(w.output,this.element,null,options,text);
-            SyntaxHighlighter.highlight(null, element);
-			w.nextMatch = lookaheadMatch.index + lookaheadMatch[0].length;
-		}
-	}
-});
-//}}}
-/***
-!!!!!Add class attribute to pre, if defined
-***/
-//{{{
-(function(formatters) { //# set up alias
-	var helper = {};	
-	helper.enclosedTextHelper = function(w){
-		var attr;
-		var co = config.options;
-		var expert = (co.chkExpertSyntax != undefined)? co.chkExpertSyntax : false;
-		var guess  = (co.chkGuessSyntax != undefined)? co.chkGuessSyntax : true;
-		
-		this.lookaheadRegExp.lastIndex = w.matchStart;
-		var lookaheadMatch = this.lookaheadRegExp.exec(w.source);
-		if(lookaheadMatch &amp;&amp; lookaheadMatch.index == w.matchStart) {
-			var text = lookaheadMatch[1];
-			if(config.browser.isIE)
-				text = text.replace(/\n/g,&quot;\r&quot;);
-
-			switch(w.matchText) {
-			case &quot;{{{\n&quot;: // text
-				attr = (expert) ? (co.txtShText) ? (co.txtShText) : 'brush:text' : 'brush:text' ;
-				break;
-			case &quot;/*{{{*/\n&quot;: // CSS
-				attr = (expert) ? (co.txtShCss) ? (co.txtShCss) : 'brush:css' : 'brush:css';
-				break;
-			case &quot;//{{{\n&quot;: // plugin
-				attr = (expert) ? (co.txtShPlugin) ? (co.txtShPlugin) : 'brush:js' : 'brush:js';
-				break;
-			case &quot;&lt;!--{{{--&gt;\n&quot;: //template
-				attr =  (expert) ? (co.txtShXml) ? (co.txtShXml) : 'brush:xml' : 'brush:xml';
-				break;
-			}
-			var element = createTiddlyElement(w.output,this.element,null,attr,text);		
-	        if (guess || expert) SyntaxHighlighter.highlight(null, element);
-
-			w.nextMatch = lookaheadMatch.index + lookaheadMatch[0].length;
-		}
-	};
-	// merge the new helper function into formatterHelpers. 
-	merge(config.formatterHelpers, helper);
-
-})(config.formatters); //# end of alias
-//}}}</pre>
-</div>
-<div title="SyntaxHighlighterPlugin3Info" modifier="GBognar" created="201008171251" modified="201202261725" tags="syntax" changecount="102">
-<pre>|''Name''|SyntaxHighlighterPlugin3Info|
-|''Description''|Documentation for [[SyntaxHighlighterPlugin3]]|
-|''Author''|PMario|
-|''Version''|0.2.3|
-|''Source''|http://syntaxhighlighter.tiddlyspace.com/#SyntaxHighlighterPlugin3|
-|''Documentation''|http://syntaxhighlighter.tiddlyspace.com/#SyntaxHighlighterPlugin3Info|
+<div title="SyntaxHighlighterRubyPluginInfo" modifier="GBognar" created="201008171251" modified="201202271641" tags="syntax" changecount="107">
+<pre>|''Name''|SyntaxHighlighterRubyPluginInfo|
+|''Description''|Documentation for [[SyntaxHighlighterRubyPlugin]]|
+|''Author''|GBognar|
+|''Version''|0.1.0|
+|''Source''||
+|''Documentation''||
 |''License''|[[BSD|http://www.opensource.org/licenses/bsd-license.php]], libraries used: see  [[ShCore.js]] |
-|''Keywords''|syntax highlighting color code|
+|''Keywords''|syntax highlighting color code Ruby|
 !Usage
 !!Setting up the styles to be used
 &lt;&lt;&lt;
@@ -1423,7 +1338,7 @@ To make use of other available themes:
 &lt;&lt;&lt;
 !!Syntax Highlighting via Special ~TiddlyWiki Markup
 &lt;&lt;&lt;
-* Content between &quot;&quot;&quot;{{{&quot;&quot;&quot; and &quot;&quot;&quot;}}}&quot;&quot;&quot; will be highlighted as plain text. (Note that it is not the same as using &quot;&quot;&quot;{{{&quot;&quot;&quot; and &quot;&quot;&quot;}}}&quot;&quot;&quot; without the SyntaxHighlighterPlugin3 plugin.)
+* Content between &quot;&quot;&quot;{{{&quot;&quot;&quot; and &quot;&quot;&quot;}}}&quot;&quot;&quot; will be highlighted as plain text. (Note that it is not the same as using &quot;&quot;&quot;{{{&quot;&quot;&quot; and &quot;&quot;&quot;}}}&quot;&quot;&quot; without the SyntaxHighlighterRubyPlugin plugin.)
 * Content between &quot;&quot;&quot;/*{{{*/&quot;&quot;&quot; and &quot;&quot;&quot;/*}}}*/&quot;&quot;&quot; will be highlighted as CSS.
 * Content between &quot;&quot;&quot;&lt;!--{{{--&gt;&quot;&quot;&quot; and &quot;&quot;&quot;&lt;!--}}}--&gt;&quot;&quot;&quot; will be highlighted as XML.
 * Content between &quot;&quot;&quot;//{{{&quot;&quot;&quot; and &quot;&quot;&quot;//}}}&quot;&quot;&quot; will be highlighted as ~JavaScript.
@@ -1815,7 +1730,7 @@ then change it to the content below (note the 6^^th^^, highlighted line).
 !!Configuration Options
 !!!The 'Guess syntax' Option
 &lt;&lt;&lt;
-The {{{Guess syntax}}} option can be set in the cell below or in the [[SyntaxHighlighterPlugin3]].
+The {{{Guess syntax}}} option can be set in the cell below or in the [[SyntaxHighlighterRubyPlugin]].
 |''Guess syntax:''| &lt;&lt;option chkGuessSyntax&gt;&gt;|
 If the {{{Guess syntax}}} option __is activated__, syntax highlighting will occure according to the used //block braces// as described above. So
 * content between &quot;&quot;&quot;{{{&quot;&quot;&quot; and &quot;&quot;&quot;}}}&quot;&quot;&quot; will be highlighted as plain text, using the [[plain text syntax highlighter|ShBrushPlain.js]]
@@ -1827,9 +1742,9 @@ Of course, other syntax highlighting solutions will still work, so content betwe
 &lt;&lt;&lt;
 !!!The 'Expert mode' Option
 &lt;&lt;&lt;
-The {{{Expert mode}}} option can be set in the cell below or in the [[SyntaxHighlighterPlugin3]].
+The {{{Expert mode}}} option can be set in the cell below or in the [[SyntaxHighlighterRubyPlugin]].
 |''Expert mode:''| &lt;&lt;option chkExpertSyntax&gt;&gt;|
-If the {{{Expert mode}}} option __is activated__, the syntax highlighting for contents between //block braces// will be according to the parameters set below (or in the [[SyntaxHighlighterPlugin3]]):
+If the {{{Expert mode}}} option __is activated__, the syntax highlighting for contents between //block braces// will be according to the parameters set below (or in the [[SyntaxHighlighterRubyPlugin]]):
 |Content between &quot;&quot;&quot;{{{&quot;&quot;&quot; and &quot;&quot;&quot;}}}&quot;&quot;&quot; will be highlighted using| &lt;&lt;option txtShText&gt;&gt;|e.g.: {{{brush:text; gutter: false}}}|sets the option {{{txtShText}}}|
 |Content between &quot;&quot;&quot;/*{{{*/&quot;&quot;&quot; and &quot;&quot;&quot;/*}}}*/&quot;&quot;&quot; will be highlighted using| &lt;&lt;option txtShCss&gt;&gt;|e.g.: {{{brush:css; tab-size: 4}}}|sets the option {{{txtShCss}}}|
 |Content between &quot;&quot;&quot;&lt;!--{{{--&gt;&quot;&quot;&quot; and &quot;&quot;&quot;&lt;!--}}}--&gt;&quot;&quot;&quot; will be highlighted using| &lt;&lt;option txtShXml&gt;&gt;|e.g.: {{{brush:xml; tab-size:4}}}|sets the option {{{txtShXml}}}|
@@ -1866,15 +1781,7 @@ __''Notes''__:
 
 !Revision History
 &lt;&lt;&lt;
-*V 0.2.3 2012-02-26
-**Less documentation in the plugin itself
-**More details about the usage of the {{{&lt;&lt;highlightSyntax&gt;&gt;}}} macro in the plugin documentation
-*V 0.2.2 2012-02-26
-**More detailed documentation
-*V 0.2.0 2010-08-22
-**New formatter for {{{&lt;code class='brush:???'&gt;}}} is available now
-**expert mode uses config options now
-*V 0.1.0 2010-08-17
+*V 0.1.0 2012-02-27
 **initial release
 &lt;&lt;&lt;
 
@@ -1887,15 +1794,85 @@ __''Notes''__:
 *[[ShBrushCSS.js]]
 *[[ShBrushJScript.js]]
 *[[ShBrushXml.js]]
-*[[SyntaxHighlighterPlugin3]]
+*[[SyntaxHighlighterRubyPlugin]]
 &lt;&lt;&lt;
 
 !!Optional requirements
 &lt;&lt;&lt;
-*[[SyntaxHighlighterPlugin3Info]] for documentation
-*[[ShBrushPython.js]] for the 'General Example' for {{{&lt;code&gt;}}} and {{{&lt;pre&gt;}}} usage to work in the [[SyntaxHighlighterPlugin3Info]] documentation
+*[[SyntaxHighlighterRubyPluginInfo]] for documentation
+*[[ShBrushPython.js]] for the 'General Example' for {{{&lt;code&gt;}}} and {{{&lt;pre&gt;}}} usage to work in the [[SyntaxHighlighterRubyPluginInfo]] documentation
 &lt;&lt;&lt;
 </pre>
+</div>
+<div title="Test &lt;code&gt; tag with Ruby" creator="GBognar" modifier="GBognar" created="201202271739" modified="201202271745" changecount="6">
+<pre>&lt;code class=&quot;brush: ruby; tab-size:2; highlight:[1,3]&quot;&gt;
+#This is for testing Ruby
+class TestClass  &lt; BasicObject
+	def initialize
+		@initialized_on = Time.now
+	end
+	def when?
+		puts &quot;This object was initialized on #{@initialized_on}&quot;
+	end
+end
+=begin
+Ruby multi-line comment
+=end
+3.times {|index| puts &quot;#{index}&quot;}
+
+1.upto(10) do |index|
+	puts &quot;#{index}&quot;
+end
+&lt;/code&gt;</pre>
+</div>
+<div title="Test ={{{ markup" creator="GBognar" modifier="GBognar" created="201202271652" modified="201202271744" changecount="10">
+<pre>={{{
+#This is for testing Ruby
+class TestClass  &lt; BasicObject
+	def initialize
+		@initialized_on = Time.now
+	end
+	def when?
+		puts &quot;This object was initialized on #{@initialized_on}&quot;
+	end
+end
+=begin
+Ruby multi-line comment
+=end
+
+3.times {|index| puts &quot;#{index}&quot;}
+
+1.upto(10) do |index|
+	puts &quot;#{index}&quot;
+end
+=}}}
+
+</pre>
+</div>
+<div title="Test highlightSyntax macro with Ruby" creator="GBognar" modifier="GBognar" created="201202271739" modified="201202271745" changecount="4">
+<pre>&lt;html&gt;
+	&lt;pre class=&quot;brush: ruby; tab-size:2; highlight:[1,3]&quot;&gt;
+	#This is for testing Ruby
+	class TestClass  &lt; BasicObject
+		def initialize
+			@initialized_on = Time.now
+		end
+		def when?
+			puts &quot;This object was initialized on #{@initialized_on}&quot;
+		end
+	end	
+
+	=begin
+	Ruby multi-line comment
+	=end
+
+	3.times {|index| puts &quot;#{index}&quot;}
+	1.upto(10) do |index|
+		puts &quot;#{index}&quot;
+	end
+	&lt;/pre&gt;
+&lt;/html&gt;
+&lt;&lt;highlightSyntax&gt;&gt;</pre>
 </div>
 </div>
 <!--POST-STOREAREA-->
@@ -11533,7 +11510,8 @@ if(useJavaSaver)
 //]]>
 </script>
 <!--POST-SCRIPT-START-->
-
+<script type="text/javascript" src="loadExternal.js">
+</script>
 <!--POST-SCRIPT-END-->
 </body>
 </html>
