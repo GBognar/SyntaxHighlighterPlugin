@@ -1,16 +1,19 @@
 |**Note:** This is a work in progress.|
-
-=Description
-The [[https://github.com/GBognar/SyntaxHighlighterPlugin|SyntaxHighlighterRubyPlugin]] is a [[http://www.tiddlywiki.com|TiddlyWiki]] plugin which enables you to syntax highlight Ruby, CSS, XML/HTML and JavaScript content in your ~TiddlyWiki.
-
-It is built on PMario's [[https://github.com/pmario/SyntaxHighlighterPlugin|SyntaxHighlighterPlugin]], which uses Alex Gorbatchev 's [[http://alexgorbatchev.com/SyntaxHighlighter/|SyntaxHighlighter]].
-
-=Current Development
-The current development focuses on providing a //really **fast** and **comfortable**// solution to syntax highlight Ruby code in TiddlyWiki.
-
-=The 'SyntaxHighlighterPluginFacelift' branch
-The [[https://github.com/GBognar/SyntaxHighlighterPlugin/tree/SyntaxHighlighterPluginFacelift|SyntaxHighlighterPluginFacelift branch]] contains a version of
-PMario's original [[https://github.com/pmario/SyntaxHighlighterPlugin|SyntaxHighlighterPlugin]] with minor modifications, namely:
-* more verbose description in the documentation of the plugin,
-* less verbose description in the plugin itself and
-* some minor changes to the styles governing the appearance of highlighted content.
+=The 'AddingRuby' branch
+The [[https://github.com/GBognar/SyntaxHighlighterPlugin/tree/AddingRuby|AddingRuby branch]] is where active development
+happens focusing on providing a //really **fast** and **comfortable**// solution to syntax highlight Ruby code in TiddlyWiki.
+==Completed
+*A plugin named **SyntaxHighlighterRubyPlugin** was created which adds a new formatter to handle {{{={{{}}} and {{{=}}}}}} markup
+**Content between {{{={{{}}} and {{{=}}}}}} is syntax highlighted as Ruby code
+**txtShRuby option was added for handling default parameters to the Ruby syntax highlighting
+**ShBrushRuby.js was included from Alex Gorbatchev's [[http://alexgorbatchev.com/SyntaxHighlighter/| SyntaxHighlighter]].
+*A plugin named **SyntaxHighlighterRubyPluginInfo** was created which should contain documentation on the plugin
+**Basic information about the plugin was added
+==Todo
+*Finalize the documentation in SyntaxHighlighterRubyPluginInfo
+*Add at least one dark theme from Alex Gorbatchev's [[http://alexgorbatchev.com/SyntaxHighlighter/| SyntaxHighlighter]].
+==Planned
+*Try to improve the syntax highlighter 'brush'
+**multi-line Ruby comments between {{{=begin}}} and {{{=end}}}
+**variables in strings with {{{#{...}}}} notation
+**anything else I found disturbingly missing
