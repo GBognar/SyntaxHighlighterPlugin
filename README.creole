@@ -1,4 +1,4 @@
-The **[[https://github.com/GBognar/SyntaxHighlighterPlugin|SyntaxHighlighterRubyPlugin]]** enables syntax highlighted rendering of plain text, XML/HTML, CSS, JavaScript and Ruby content in a [[TiddlyWiki|http://www.tiddlywiki.com]] by enclosing it in special ~TiddlyWiki markup.
+The **[[https://github.com/GBognar/SyntaxHighlighterPlugin|SyntaxHighlighterRubyPlugin]]** enables syntax highlighted rendering of plain text, XML/HTML, CSS, JavaScript and Ruby content in a [[http://www.tiddlywiki.com|TiddlyWiki]] by enclosing it in special ~TiddlyWiki markup.
 
 * Content between **~{~{~{** and **~}~}~}** will be highlighted as **plain text**.
 * Content between **/*~{~{~{*/** and **/*~}~}~}*/** will be highlighted as **CSS**.
@@ -6,7 +6,7 @@ The **[[https://github.com/GBognar/SyntaxHighlighterPlugin|SyntaxHighlighterRuby
 * Content between **~/~/~{~{~{** and **~/~/~}~}~}** will be highlighted as **JavaScript**.
 * Content between **=~{~{~{** and **=~}~}~}** will be highlighted as **Ruby**.
 
-The plugin is based on [[PMario's SyntaxHighlighterPlugin|http://syntaxhighlighter.tiddlyspace.com/#SyntaxHighlighterPlugin3]] and [[Alexander Gorbachev's SyntaxHighlighter|http://alexgorbatchev.com/SyntaxHighlighter|]].
+The plugin is based on [[http://syntaxhighlighter.tiddlyspace.com/#SyntaxHighlighterPlugin3|PMario's SyntaxHighlighterPlugin]] and [[http://alexgorbatchev.com/SyntaxHighlighter|Alexander Gorbachev's SyntaxHighlighter]].
 
 It is built on PMario's [[https://github.com/pmario/SyntaxHighlighterPlugin|SyntaxHighlighterPlugin]], which uses Alex Gorbatchev 's [[http://alexgorbatchev.com/SyntaxHighlighter/|SyntaxHighlighter]].
 
