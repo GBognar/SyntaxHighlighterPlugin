@@ -1,19 +1,23 @@
-|**Note:** This is a work in progress.|
-=The 'AddingRuby' branch
-The [[https://github.com/GBognar/SyntaxHighlighterPlugin/tree/AddingRuby|AddingRuby branch]] is where active development
-happens focusing on providing a //really **fast** and **comfortable**// solution to syntax highlight Ruby code in TiddlyWiki.
-==Completed
-*A plugin named **SyntaxHighlighterRubyPlugin** was created which adds a new formatter to handle {{{={{{}}} and {{{=}}}}}} markup
-**Content between {{{={{{}}} and {{{=}}}}}} is syntax highlighted as Ruby code
-**txtShRuby option was added for handling default parameters to the Ruby syntax highlighting
-**ShBrushRuby.js was included from Alex Gorbatchev's [[http://alexgorbatchev.com/SyntaxHighlighter/| SyntaxHighlighter]].
-*A plugin named **SyntaxHighlighterRubyPluginInfo** was created which should contain documentation on the plugin
-**Basic information about the plugin was added
-==Todo
-*Finalize the documentation in SyntaxHighlighterRubyPluginInfo
-*Add at least one dark theme from Alex Gorbatchev's [[http://alexgorbatchev.com/SyntaxHighlighter/| SyntaxHighlighter]].
-==Planned
-*Try to improve the syntax highlighter 'brush'
-**multi-line Ruby comments between {{{=begin}}} and {{{=end}}}
-**variables in strings with {{{#{...}}}} notation
-**anything else I found disturbingly missing
+=SyntaxHighlighterRubyPlugin for TiddlyWiki
+
+The **[[https://github.com/GBognar/SyntaxHighlighterPlugin|SyntaxHighlighterRubyPlugin]]** enables syntax highlighted rendering of plain text, XML/HTML, CSS, JavaScript and Ruby content in a [[http://www.tiddlywiki.com|TiddlyWiki]] by enclosing it in special ~TiddlyWiki markup.
+
+* Content between **~{~{~{** and **~}~}~}** will be highlighted as **plain text**.
+* Content between **/*~{~{~{*/** and **/*~}~}~}*/** will be highlighted as **CSS**.
+* Content between **<!--~{~{~{-->** and **<!--~}~}~}-->** will be highlighted as **XML/HTML**.
+* Content between **~/~/~{~{~{** and **~/~/~}~}~}** will be highlighted as **JavaScript**.
+* Content between **=~{~{~{** and **=~}~}~}** will be highlighted as **Ruby**.
+
+The plugin is based on [[http://syntaxhighlighter.tiddlyspace.com/#SyntaxHighlighterPlugin3|PMario's SyntaxHighlighterPlugin]] and [[http://alexgorbatchev.com/SyntaxHighlighter|Alexander Gorbachev's SyntaxHighlighter]].
+
+It is built on PMario's [[https://github.com/pmario/SyntaxHighlighterPlugin|SyntaxHighlighterPlugin]], which uses Alex Gorbatchev 's [[http://alexgorbatchev.com/SyntaxHighlighter/|SyntaxHighlighter]].
+----
+For further information, see the [[https://github.com/GBognar/SyntaxHighlighterPlugin/wiki/Documentation|Documentation]] and the [[https://github.com/GBognar/SyntaxHighlighterPlugin/wiki/FAQ|FAQ]].
+----
+
+==The 'SyntaxHighlighterPluginFacelift' branch
+The [[https://github.com/GBognar/SyntaxHighlighterPlugin/tree/SyntaxHighlighterPluginFacelift|SyntaxHighlighterPluginFacelift branch]] contains a version of
+PMario's original [[https://github.com/pmario/SyntaxHighlighterPlugin|SyntaxHighlighterPlugin]] with minor modifications, namely:
+* more verbose description in the documentation of the plugin,
+* less verbose description in the plugin itself and
+* some minor changes to the styles governing the appearance of highlighted content.
