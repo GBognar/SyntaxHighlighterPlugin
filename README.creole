@@ -23,5 +23,5 @@ PMario's original [[https://github.com/pmario/SyntaxHighlighterPlugin|SyntaxHigh
 * less verbose description in the plugin itself and
 * some minor changes to the styles governing the appearance of highlighted content.
 ----
-For further information, see the [[Documentation|wiki/_pages/Documentation]] and the [[FAQ|wiki/_pages/FAQ]].
+For further information, see the [[wiki/_pages/Documentation|Documentation]] and the [[wiki/_pages/FAQ|FAQ]].
 ----
