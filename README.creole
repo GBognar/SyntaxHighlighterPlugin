@@ -11,6 +11,9 @@ The **[[https://github.com/GBognar/SyntaxHighlighterPlugin|SyntaxHighlighterRuby
 The plugin is based on [[http://syntaxhighlighter.tiddlyspace.com/#SyntaxHighlighterPlugin3|PMario's SyntaxHighlighterPlugin]] and [[http://alexgorbatchev.com/SyntaxHighlighter|Alexander Gorbachev's SyntaxHighlighter]].
 
 It is built on PMario's [[https://github.com/pmario/SyntaxHighlighterPlugin|SyntaxHighlighterPlugin]], which uses Alex Gorbatchev 's [[http://alexgorbatchev.com/SyntaxHighlighter/|SyntaxHighlighter]].
+----
+For further information, see the [[https://github.com/GBognar/SyntaxHighlighterPlugin/wiki/Documentation|Documentation]] and the [[https://github.com/GBognar/SyntaxHighlighterPlugin/wiki/FAQ|FAQ]].
+----
 
 ==The 'SyntaxHighlighterPluginFacelift' branch
 The [[https://github.com/GBognar/SyntaxHighlighterPlugin/tree/SyntaxHighlighterPluginFacelift|SyntaxHighlighterPluginFacelift branch]] contains a version of
@@ -18,6 +21,3 @@ PMario's original [[https://github.com/pmario/SyntaxHighlighterPlugin|SyntaxHigh
 * more verbose description in the documentation of the plugin,
 * less verbose description in the plugin itself and
 * some minor changes to the styles governing the appearance of highlighted content.
-----
-For further information, see the [[https://github.com/GBognar/SyntaxHighlighterPlugin/wiki/Documentation|Documentation]] and the [[https://github.com/GBognar/SyntaxHighlighterPlugin/wiki/FAQ|FAQ]].
-----
