@@ -1425,13 +1425,13 @@ eval(function(p,a,c,k,e,d){e=function(c){return(c&lt;a?'':e(parseInt(c/a)))+((c=
 <pre>[[ShCore.css]]
 [[ShThemeDefault.css]]</pre>
 </div>
-<div title="SyntaxHighlighterRubyPlugin" creator="GBognar" modifier="GBognar" created="201202271758" modified="201203011824" tags="systemConfig syntax" changecount="8">
+<div title="SyntaxHighlighterRubyPlugin" creator="GBognar" modifier="GBognar" created="201202271758" modified="201203031550" tags="systemConfig syntax" changecount="11">
 <pre>/***
 |''Name''|SyntaxHighlighterRubyPlugin|
 |''Description''|Enables syntax highlighting|
 |''Author''|GBognar|
-|''Version''|0.1.0|
-|''Status''|@@experimental@@|
+|''Version''|0.2.0|
+|''Status''|@@beta@@|
 |''Source''|https://github.com/GBognar/SyntaxHighlighterPlugin|
 |''Documentation''|[[SyntaxHighlighterRubyPluginInfo]] or https://github.com/GBognar/SyntaxHighlighterPlugin/wiki|
 |''License''|[[BSD|http://www.opensource.org/licenses/bsd-license.php]]|
@@ -1457,6 +1457,8 @@ If the {{{Expert mode}}} option __is activated__, the syntax highlighting for co
 &lt;&lt;&lt;
 !Revision History
 &lt;&lt;&lt;
+*V 0.2.0 2012-03-03
+**More polished documentation
 *V 0.1.0 2012-02-27
 **Initial release
 &lt;&lt;&lt;
@@ -1626,18 +1628,25 @@ if (!version.extensions.SyntaxHighlighterRubyPlugin) {
 } //# end of install only once
 //}}}</pre>
 </div>
-<div title="SyntaxHighlighterRubyPluginInfo" modifier="GBognar" created="201008171251" modified="201203011917" tags="syntax" changecount="141">
+<div title="SyntaxHighlighterRubyPluginInfo" modifier="GBognar" created="201008171251" modified="201203031553" tags="syntax" changecount="151">
 <pre>|''Name''|SyntaxHighlighterRubyPluginInfo|
 |''Description''|Documentation for [[SyntaxHighlighterRubyPlugin]]|
 |''Author''|GBognar|
-|''Version''|0.1.0|
+|''Version''|0.2.0|
 |''Source''|https://github.com/GBognar/SyntaxHighlighterPlugin|
 |''Documentation''|This tiddler, or at https://github.com/GBognar/SyntaxHighlighterPlugin/wiki|
 |''License''|[[BSD|http://www.opensource.org/licenses/bsd-license.php]], libraries used: see  [[ShCore.js]] |
 |''Keywords''|syntax highlighting color code Ruby|
 !Description
 &lt;&lt;&lt;
-Enables syntax highlighted rendering of plain text, XML/HTML, CSS, ~JavaScript and Ruby content based on [[PMario's SyntaxHighlighterPlugin|http://syntaxhighlighter.tiddlyspace.com/#SyntaxHighlighterPlugin3]] and [[Alexander Gorbachev's SyntaxHighlighter|http://alexgorbatchev.com/SyntaxHighlighter]].
+The SyntaxHighlighterRubyPlugin enables syntax highlighted rendering of plain text, XML/HTML, CSS, ~JavaScript and Ruby content in a [[TiddlyWiki|http://www.tiddlywiki.com]] by enclosing it in special ~TiddlyWiki markup.
+* Content between &quot;&quot;&quot;{{{&quot;&quot;&quot; and &quot;&quot;&quot;}}}&quot;&quot;&quot; will be highlighted as plain text.
+* Content between &quot;&quot;&quot;/*{{{*/&quot;&quot;&quot; and &quot;&quot;&quot;/*}}}*/&quot;&quot;&quot; will be highlighted as CSS.
+* Content between &quot;&quot;&quot;&lt;!--{{{--&gt;&quot;&quot;&quot; and &quot;&quot;&quot;&lt;!--}}}--&gt;&quot;&quot;&quot; will be highlighted as XML.
+* Content between &quot;&quot;&quot;//{{{&quot;&quot;&quot; and &quot;&quot;&quot;//}}}&quot;&quot;&quot; will be highlighted as ~JavaScript.
+* Content between &quot;&quot;&quot;={{{&quot;&quot;&quot; and &quot;&quot;&quot;=}}}&quot;&quot;&quot; will be highlighted as Ruby.
+
+The plugin is based on [[PMario's SyntaxHighlighterPlugin|http://syntaxhighlighter.tiddlyspace.com/#SyntaxHighlighterPlugin3]] and [[Alexander Gorbachev's SyntaxHighlighter|http://alexgorbatchev.com/SyntaxHighlighter|]].
 &lt;&lt;&lt;
 !Installation
 &lt;&lt;&lt;
@@ -2231,6 +2240,7 @@ If the {{{Guess syntax}}} option __is activated__, syntax highlighting will occu
 * content between &quot;&quot;&quot;/*{{{*/&quot;&quot;&quot; and &quot;&quot;&quot;/*}}}*/&quot;&quot;&quot; will be highlighted as CSS, using the [[CSS syntax highlighter|ShBrushCSS.js]]
 * content between &quot;&quot;&quot;&lt;!--{{{--&gt;&quot;&quot;&quot; and &quot;&quot;&quot;&lt;!--}}}--&gt;&quot;&quot;&quot; will be highlighted as XML and, using the [[XML syntax highlighter|ShBrushXml.js]]
 * content between &quot;&quot;&quot;//{{{&quot;&quot;&quot; and &quot;&quot;&quot;//}}}&quot;&quot;&quot; will be highlighted as ~JavaScript, using the [[JavaScript syntax highlighter|ShBrushJScript.js]]
+* content between &quot;&quot;&quot;={{{&quot;&quot;&quot; and &quot;&quot;&quot;=}}}&quot;&quot;&quot; will be highlighted as Ruby, using the [[Ruby syntax highlighter|ShBrushRuby.js]]
 If the {{{Guess syntax}}} option __is ''not'' activated__, syntax highlighting will __not__ occure in cases where the //block braces// are used.
 Of course, other syntax highlighting solutions will still work, so content between {{{&lt;html&gt;&lt;pre class=&quot;brush: ...&quot;&gt;}}} and {{{&lt;/pre&gt;&lt;/html&gt;}}} will __still__ be syntax highlighted.
 &lt;&lt;&lt;
@@ -2278,8 +2288,10 @@ __''Notes''__:
 &lt;&lt;&lt;
 !Revision History
 &lt;&lt;&lt;
+*V 0.2.0 2012-03-03
+**More polished documentation
 *V 0.1.0 2012-02-27
-**initial release
+**Initial release
 &lt;&lt;&lt;
 !Requirements
 &lt;&lt;&lt;
@@ -2299,7 +2311,7 @@ __''Notes''__:
 *[[ShBrushPython.js]] for the 'General Example' for {{{&lt;code&gt;}}} and {{{&lt;pre&gt;}}} usage to work in the [[SyntaxHighlighterRubyPluginInfo]] documentation
 &lt;&lt;&lt;
 !Alternatives
-*[[PMario's CoodeMirrorPlugin|http://codemirror.tiddlyspace.com/]] which also supports syntax highlighting __while editing__ a tiddler
+*[[PMario's CodeMirrorPlugin|http://codemirror.tiddlyspace.com/]] which also supports syntax highlighting __while editing__ a tiddler
 *[[PMario's SyntaxHighlighterPlugin|http://syntaxhighlighter.tiddlyspace.com/#SyntaxHighlighterPlugin3]] which this plugin was based on</pre>
 </div>
 <div title="Test &lt;code&gt; tag with Ruby" creator="GBognar" modifier="GBognar" created="201202271739" modified="201202271745" changecount="6">
