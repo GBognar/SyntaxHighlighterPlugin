@@ -1,3 +1,5 @@
+=SyntaxHighlighterRubyPlugin for ~TiddlyWiki
+
 The **[[https://github.com/GBognar/SyntaxHighlighterPlugin|SyntaxHighlighterRubyPlugin]]** enables syntax highlighted rendering of plain text, XML/HTML, CSS, JavaScript and Ruby content in a [[http://www.tiddlywiki.com|TiddlyWiki]] by enclosing it in special ~TiddlyWiki markup.
 
 * Content between **~{~{~{** and **~}~}~}** will be highlighted as **plain text**.
@@ -10,7 +12,7 @@ The plugin is based on [[http://syntaxhighlighter.tiddlyspace.com/#SyntaxHighlig
 
 It is built on PMario's [[https://github.com/pmario/SyntaxHighlighterPlugin|SyntaxHighlighterPlugin]], which uses Alex Gorbatchev 's [[http://alexgorbatchev.com/SyntaxHighlighter/|SyntaxHighlighter]].
 
-=The 'SyntaxHighlighterPluginFacelift' branch
+==The 'SyntaxHighlighterPluginFacelift' branch
 The [[https://github.com/GBognar/SyntaxHighlighterPlugin/tree/SyntaxHighlighterPluginFacelift|SyntaxHighlighterPluginFacelift branch]] contains a version of
 PMario's original [[https://github.com/pmario/SyntaxHighlighterPlugin|SyntaxHighlighterPlugin]] with minor modifications, namely:
 * more verbose description in the documentation of the plugin,
