@@ -1,4 +1,4 @@
-=SyntaxHighlighterRubyPlugin for ~TiddlyWiki
+=SyntaxHighlighterRubyPlugin for TiddlyWiki
 
 The **[[https://github.com/GBognar/SyntaxHighlighterPlugin|SyntaxHighlighterRubyPlugin]]** enables syntax highlighted rendering of plain text, XML/HTML, CSS, JavaScript and Ruby content in a [[http://www.tiddlywiki.com|TiddlyWiki]] by enclosing it in special ~TiddlyWiki markup.
 
