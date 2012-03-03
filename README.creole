@@ -1,6 +1,3 @@
-|**Note:** This is a work in progress.|
-
-=Description
 The **[[https://github.com/GBognar/SyntaxHighlighterPlugin|SyntaxHighlighterRubyPlugin]]** enables syntax highlighted rendering of plain text, XML/HTML, CSS, JavaScript and Ruby content in a [[TiddlyWiki|http://www.tiddlywiki.com]] by enclosing it in special ~TiddlyWiki markup.
 
 * Content between **~{~{~{** and **~}~}~}** will be highlighted as **plain text**.
